@@ -59,11 +59,11 @@ class SM70AR24:
 
     '''CONNECTION + INITIAL'''
     # initial SM70AR24, establish connection, set max output values
-    def __init__(self, IP_ADD, PORT):
+    def __init__(self, ip_add, port):
         try:
             self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)       # establish connection
             self.tcp_con.settimeout(10)
-            self.tcp_con.connect((IP_ADD, PORT))
+            self.tcp_con.connect((ip_add, port))
 
             self.set_max_value(FUNC_VOLT, MAX_VOLT)                                 # set max output values
             time.sleep(1)
