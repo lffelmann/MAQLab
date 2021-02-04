@@ -130,7 +130,7 @@
             Get:    get_ref(func=FUNC_FREQ)
                     freq_ref
 
-    PERIODE:
+    PERIOD:
         measure:
             meas(func=FUNC_PER)
             per
