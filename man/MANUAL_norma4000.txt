@@ -1,0 +1,629 @@
+-----------------------------------
+MAQLab - Manual lib norma4000.py
+-----------------------------------
+
+Contents:
+    1 Needed libraries                                                              24
+    2 Functions                                                                     30
+        2.1 Initial                                                                 33
+        2.2 Close Connection                                                        42
+        2.3 Get ID                                                                  49
+        2.4 Select measurement method (2 wattmeter method, 3 wattmeter method)      56
+        2.5 Reset device                                                            69
+        2.6 Measurement                                                             76
+            2.6.1 Voltage                                                           79
+            2.6.2 Current                                                           260
+            2.6.3 Power                                                             370
+            2.6.4 Phase                                                             475
+            2.6.5 Impedance                                                         500
+            2.6.6 Resistance                                                        525
+            2.6.7 Reactance                                                         570
+    3 Example Program                                                               615
+
+-------------------------
+1 Needed libraries
+-------------------------
+    + time
+    + socket
+
+-------------------------
+2 Functions
+-------------------------
+--------------------
+2.1 Initial
+--------------------
+    NORMA4000(ip_add, port)
+
+    Arguments:
+        ip_add = IP address of device
+        port   = Port of device (normally 23)
+
+--------------------
+2.2 Close Connection
+--------------------
+    close()
+
+    Return: None
+
+--------------------
+2.3 Get ID
+--------------------
+    id()
+
+    Return: ID of device
+
+--------------------
+2.4 Select measurement method (2 wattmeter method, 3 wattmeter method)
+--------------------
+    watt_meth(method)
+
+    Arguments:
+        method = 2...2 Wattmeter method
+                 3...3 Wattmeter method
+
+    Return: None
+
+    The wattmeter method must be selected before a measurement can be acquired.
+
+--------------------
+2.5 Reset device
+--------------------
+    rst()
+
+    Return: None
+
+--------------------
+2.6 Measurement
+--------------------
+---------------
+2.6.1 Voltage
+---------------
+    volt(func, phase)
+
+    True RMS Voltage:
+        func = 'trms'
+        phase = 1 or 2 or 3
+        Return: True RMS Voltage
+
+    Average True RMS Voltage:
+        func = 'trms'
+        phase = 130
+        Return: Average True RMS Voltage
+
+    True RMS phase to phase Voltage:
+        func = 'trms'
+        phase = 12 or 23 or 31 or 13
+        Return: Average True RMS Voltage
+
+    Average True RMS Voltage phase to phase:
+        func = 'trms'
+        phase = 123
+        Return: Average True RMS Voltage phase to phase
+
+    RMS Voltage:
+        func = 'rms'
+        phase = 1 or 2 or 3
+        Return: RMS Voltage
+
+    Average RMS Voltage:
+        func = 'rms'
+        phase = 130
+        Return: Average RMS Voltage
+
+    Mean Voltage:
+        func = 'mean'
+        phase = 1 or 2 or 3
+        Return: Mean Voltage
+
+    Average Mean Voltage:
+        func = 'mean'
+        phase = 130
+        Return: Average Mean phase to phase Voltage
+
+    Average Mean phase to phase Voltage:
+        func = 'mean'
+        phase = 123
+        Return: Average Mean phase to phase Voltage
+
+    Rectified Mean Voltage:
+        func = 'rmean'
+        phase = 1 or 2 or 3
+        Return: Rectified Mean Voltage
+
+    Average Rectified Mean Voltage:
+        func = 'rmean'
+        phase = 130
+        Return: Average Rectified Mean Voltage
+
+    Rectified Mean phase to phase Voltage:
+        func = 'rmean'
+        phase = 12 or 23 or 31 or 13
+        Return: Rectified Mean phase to phase Voltage
+
+    Average Rectified Mean phase to phase Voltage:
+        func = 'rmean'
+        phase = 123
+        Return: Average Rectified Mean phase to phase Voltage
+
+    Rectified Mean Voltage Corrected:
+        func = 'rmcorr'
+        phase = 1 or 2 or 3
+        Return: Rectified Mean Voltage Corrected
+
+    Average Rectified Mean Voltage Corrected:
+        func = 'rmcorr'
+        phase = 130
+        Return: Average Rectified Mean Voltage Corrected
+
+    Rectified Mean phase to phase Voltage Corrected:
+        func = 'rmcorr'
+        phase = 12 or 23 or 31 or 13
+        Return: Rectified Mean phase to phase Voltage Corrected
+
+    Average Rectified Mean phase to phase Voltage Corrected:
+        func = 'rmcorr'
+        phase = 123
+        Return: Average Rectified Mean phase to phase Voltage Corrected
+
+    peak to peak Voltage:
+        func = 'ptp'
+        phase = 1 or 2 or 3
+        Return: peak to peak Voltage
+
+    Highest value within averaging interval:
+        func = 'phigh'
+        phase = 1 or 2 or 3
+        Return: Highest value within averaging interval
+
+    Lowest value within averaging interval:
+        func = 'plow'
+        phase = 1 or 2 or 3
+        Return: Lowest value within averaging interval
+
+    Voltage Harmonic:
+        func = 'har'
+        phase = 1 or 2 or 3
+        Return: Voltage Harmonic
+
+    Average Voltage Harmonic:
+        func = 'har'
+        phase = 130
+        Return: Average Voltage Harmonic
+
+    phase to phase Voltage Harmonic:
+        func = 'har'
+        phase = 12 or 23 or 31 or 13
+        Return: phase to phase Voltage Harmonic
+
+    Average phase to phase Voltage Harmonic:
+        func = 'har'
+        phase = 123
+        Return: Average phase to phase Voltage Harmonic
+
+    Voltage Crest Factor:
+        func = 'cfac'
+        phase = 1 or 2 or 3
+        Return: Voltage Crest Factor
+
+    Voltage Absolute Phase:
+        func = 'phas'
+        phase = 1 or 2 or 3
+        Return: Voltage Absolute Phase
+
+
+    phase to phase Absolute Voltage Phase:
+        func = 'phas'
+        phase = 12 or 23 or 31 or 13
+        Return: phase to phase Absolute Voltage Phase
+
+    Voltage Form Factor:
+        func = 'ffac'
+        phase = 1 or 2 or 3
+        Return: Voltage Form Factor
+
+    phase to phase Voltage Form Factor:
+        func = 'ffac'
+        phase = 12 or 23 or 31 or 13
+        Return: phase to phase Voltage Form Factor
+
+    Voltage Harmonic Content:
+        func = 'hcont'
+        phase = 1 or 2 or 3
+        Return: Voltage Harmonic Content
+
+    phase to phase Voltage Harmonic Content:
+        func = 'hcont'
+        phase = 12 or 23 or 31 or 13
+        Return: phase to phase Voltage Harmonic Content
+
+    Voltage Fundamental Content:
+        func = 'fcont'
+        phase = 1 or 2 or 3
+        Return: Voltage Fundamental Content
+
+    phase to phase Voltage Fundamental Content:
+        func = 'fcont'
+        phase = 12 or 23 or 31 or 13
+        Return: phase to phase Voltage Fundamental Content
+
+    Voltage THD:
+        func = 'thd'
+        phase = 1 or 2 or 3
+        Return: Voltage THD
+
+    phase to phase Voltage THD:
+        func = 'thd'
+        phase = 12 or 23 or 31 or 13
+        Return: phase to phase Voltage THD
+
+---------------
+2.6.2 Current
+---------------
+    curr(func, phase)
+
+    True RMS Current:
+        func = 'trms'
+        phase = 1 or 2 or 3
+        Return: True RMS Current
+
+    Average True RMS Current:
+        func = 'trms'
+        phase = 130
+        Return: Average True RMS Current
+
+    RMS Current:
+        func = 'rms'
+        phase = 1 or 2 or 3
+        Return: RMS Current
+
+    Average RMS Current:
+        func = 'rms'
+        phase = 130
+        Return: Average RMS Current
+
+    Mean Current:
+        func = 'mean'
+        phase = 1 or 2 or 3
+        Return: Mean Current
+
+    Average Mean Current:
+        func = 'mean'
+        phase = 130
+        Return: Average Mean Current
+
+    Rectified Mean Current:
+        func = 'rmean'
+        phase = 1 or 2 or 3
+        Return: Rectified Mean Current
+
+    Average Rectified Mean Current:
+        func = 'rmean'
+        phase = 130
+        Return: Average Rectified Mean Current
+
+    Rectified Mean Current Corrected:
+        func = 'rmcorr'
+        phase = 1 or 2 or 3
+        Return: Rectified Mean Current Corrected
+
+    Average Rectified Mean Current Corrected:
+        func = 'rmcorr'
+        phase = 130
+        Return: Average Rectified Mean Current Corrected
+
+    peak to peak Current:
+        func = 'ptp'
+        phase = 1 or 2 or 3
+        Return: peak to peak Current
+
+    Highest value within averaging interval:
+        func = 'phigh'
+        phase = 1 or 2 or 3
+        Return: Highest value within averaging interval
+
+    Lowest value within averaging interval:
+        func = 'plow'
+        phase = 1 or 2 or 3
+        Return: Lowest value within averaging interval
+
+    Current Harmonic:
+        func = 'har'
+        phase = 1 or 2 or 3
+        Return: Current Harmonic
+
+    Average Current Harmonic:
+        func = 'har'
+        phase = 130
+        Return: Average Current Harmonic
+
+    Current Crest Factor:
+        func = 'cfac'
+        phase = 1 or 2 or 3
+        Return: Current Crest Factor
+
+    Current Absolute Phase:
+        func = 'phas'
+        phase = 1 or 2 or 3
+        Return: Current Absolute Phase
+
+    Current Form Factor:
+        func = 'ffac'
+        phase = 1 or 2 or 3
+        Return: Current Form Factor
+
+    Current Harmonic Content:
+        func = 'hcont'
+        phase = 1 or 2 or 3
+        Return: Current Harmonic Content
+
+    Current Fundamental Content:
+        func = 'fcont'
+        phase = 1 or 2 or 3
+        Return: Current Fundamental Content
+
+    Current THD:
+        func = 'thd'
+        phase = 1 or 2 or 3
+        Return: Current THD
+
+---------------
+2.6.3 Power
+---------------
+    pwr(func, phase)
+
+    Active Power:
+        func = 'act'
+        phase = 1 or 2 or 3
+        Return: Active Power
+
+    Total Active Power:
+        func = 'act'
+        phase = 130
+        Return: Total Active Power
+
+    Apparent Power:
+        func = 'app'
+        phase = 1 or 2 or 3
+        Return: Apparent Power
+
+    Total Apparent Power:
+        func = 'app'
+        phase = 130
+        Return: Total Apparent Power
+
+    Reactive Power:
+        func = 'reac'
+        phase = 1 or 2 or 3
+        Return: Reactive Power
+
+    Total Reactive Power:
+        func = 'reac'
+        phase = 130
+        Return: Total Reactive Power
+
+    Power Factor:
+        func = 'fact'
+        phase = 1 or 2 or 3
+        Return: Power Factor
+
+    Total Power Factor:
+        func = 'fact'
+        phase = 130
+        Return: Total Power Factor
+
+    Corrected Power:
+        func = 'corr'
+        phase = 1 or 2 or 3
+        Return: Corrected Power
+
+    Total Corrected Power:
+        func = 'corr'
+        phase = 130
+        Return: Total Corrected Power
+
+    Total Electrical Efficiency:
+        func = 'eff'
+        phase = 130
+        Return: Total Electrical Efficiency
+
+    Active Power Harmonic:
+        func = 'har'
+        phase = 1 or 2 or 3
+        Return: Active Power Harmonic
+
+    Total Active Power Harmonic:
+        func = 'har'
+        phase = 130
+        Return: Total Active Power Harmonic
+
+    Apparent Power Harmonic:
+        func = 'apphar'
+        phase = 1 or 2 or 3
+        Return: Apparent Power Harmonic
+
+    Total Apparent Power Harmonic:
+        func = 'apphar'
+        phase = 130
+        Return: Total Apparent Power Harmonic
+
+    Reactive Power Harmonic:
+        func = 'reachar'
+        phase = 1 or 2 or 3
+        Return: Reactive Power Harmonic
+
+    Total Reactive Power Harmonic:
+        func = 'reachar'
+        phase = 130
+        Return: Total Reactive Power Harmonic
+
+    Power Factor Harmonic:
+        func = 'facthar'
+        phase = 1 or 2 or 3
+        Return: Power Factor Harmonic
+
+    Total Power Factor Harmonic:
+        func = 'facthar'
+        phase = 130
+        Return: Total Power Factor Harmonic
+
+    Total Electrical Efficiency Harmonic:
+        func = 'effhar'
+        phase = 130
+        Return: Total Electrical Efficiency Harmonic
+
+---------------
+2.6.4 Phase
+---------------
+    phas(func, phase)
+
+    Phase angle:
+        func = 'std'
+        phase = 1 or 2 or 3
+        Return: Phase angle
+
+    Total Phase Angle:
+        func = 'std'
+        phase = 130
+        Return: Total Phase angle
+
+    Phase angle Harmonic:
+        func = 'har'
+        phase = 1 or 2 or 3
+        Return: Phase angle Harmonic
+
+    Total Phase Angle Harmonic:
+        func = 'har'
+        phase = 130
+        Return: Total Phase angle Harmonic
+
+---------------
+2.6.5 Impedance
+---------------
+    imp(func, phase)
+
+    Apparent Impedance:
+        func = 'app'
+        phase = 1 or 2 or 3
+        Return: Apparent Impedance
+
+    Total Apparent Impedance:
+        func = 'app'
+        phase = 130
+        Return: Total Apparent Impedance
+
+    Apparent Impedance Harmonic:
+        func = 'apphar'
+        phase = 1 or 2 or 3
+        Return: Apparent Impedance Harmonic
+
+    Total Apparent Impedance Harmonic:
+        func = 'apphar'
+        phase = 130
+        Return: Total Apparent Impedance Harmonic
+
+---------------
+2.6.6 Resistance
+---------------
+    res(func, phase)
+
+    Serial Resistance:
+        func = ‘ser’
+        phase = 1 or 2 or 3
+        Return: Serial Resistance
+
+    Total Serial Resistance:
+        func = ‘ser’
+        phase = 130
+        Return: Total Serial Resistance
+
+    Parallel Resistance:
+        func = ‘par’
+        phase = 1 or 2 or 3
+        Return: Parallel Resistance
+
+    Total Parallel Resistance:
+        func = ‘par’
+        phase = 130
+        Return: Total Parallel Resistance
+
+    Serial Resistance Harmonic:
+        func = ‘serhar’
+        phase = 1 or 2 or 3
+        Return: Serial Resistance Harmonic
+
+    Total Serial Resistance Harmonic:
+        func = ‘serhar’
+        phase = 130
+        Return: Total Serial Resistance Harmonic
+
+    Parallel Resistance Harmonic:
+        func = ‘parhar’
+        phase = 1 or 2 or 3
+        Return: Parallel Resistance Harmonic
+
+    Total Parallel Resistance Harmonic:
+        func = ‘parhar’
+        phase = 130
+        Return: Total Parallel Resistance Harmonic
+
+---------------
+2.6.7 Reactance
+---------------
+    react(func, phase)
+
+    Serial Reactance:
+        func = ‘ser’
+        phase = 1 or 2 or 3
+        Return: Serial Reactance
+
+    Total Serial Reactance:
+        func = ‘ser’
+        phase = 130
+        Return: Total Serial Reactance
+
+    Parallel Reactance:
+        func = ‘par’
+        phase = 1 or 2 or 3
+        Return: Parallel Reactance
+
+    Total Parallel Reactance:
+        func = ‘par’
+        phase = 130
+        Return: Total Parallel Reactance
+
+    Serial Reactance Harmonic:
+        func = ‘serhar’
+        phase = 1 or 2 or 3
+        Return: Serial Reactance Harmonic
+
+    Total Serial Reactance Harmonic:
+        func = ‘serhar’
+        phase = 130
+        Return: Total Serial Reactance Harmonic
+
+    Parallel Reactance Harmonic:
+        func = ‘parhar’
+        phase = 1 or 2 or 3
+        Return: Parallel Reactance Harmonic
+
+    Total Parallel Reactance Harmonic:
+        func = ‘parhar’
+        phase = 130
+        Return: Total Parallel Reactance Harmonic
+
+-------------------------
+3 Example Program
+-------------------------
+    import norma4000
+    import time
+
+        if __name__ == '__main__':
+            norma = norma4000.NORMA4000('172.16.65.32', 23)
+            norma.rst()
+            time.sleep(1)
+
+            norma.watt_meth(3)
+            time.sleep(1)
+            print(norma.volt('trms', 130))
+
+    After every command without a return there must be a timeout so that the device can process the command.
