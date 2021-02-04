@@ -135,6 +135,8 @@ import time
 
 BUFFER = 1024
 
+DEFAULT_PORT = 23
+
 class NORMA4000:
     # wattmeter method 0...not set
     watt_methode = 0
@@ -165,11 +167,11 @@ class NORMA4000:
 
     '''CONNECTION + INITIAL'''
     # initial NORMA4000, establish connection
-    def __init__(self, IP_ADD, PORT):
+    def __init__(self, ip_add, port=DEFAULT_PORT):
         try:
             self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.tcp_con.settimeout(10)
-            self.tcp_con.connect((IP_ADD, PORT))
+            self.tcp_con.connect((ip_add, port))
         except:
             raise Exception("Error: Could not connect")
 
