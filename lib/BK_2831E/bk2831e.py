@@ -193,7 +193,7 @@ SLOW = 'slow'   # array for measurement speed slow
 
 class BK2831E:
 
-    trg_selected = IMM
+    trg_selected = IMM          # save selected trigger
 
     '''CONNECTION + INITIAL'''
     # initial bk2381e, establish connection
