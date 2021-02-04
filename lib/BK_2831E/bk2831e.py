@@ -341,12 +341,12 @@ class BK2831E:
             msg = bytearray(array_func + ':NPLC?\r\n', 'utf-8')               # get measurement speed
             data = self.send_msg(msg, True)
 
-            if data == '0.1':                                                 # if meas speed is max -> return max
-                return MAX
-            elif data == '1':                                                 # if meas speed is def -> return def
-                return DEF
-            elif data == '10':                                                # if meas speed is min -> return min
-                return MIN
+            if data == '0.1':                                                 # if meas speed is fast -> return fast
+                return FAST
+            elif data == '1':                                                 # if meas speed is med -> return med
+                return MED
+            elif data == '10':                                                # if meas speed is slow -> return slow
+                return SLOW
         except:
             raise Exception('Error: Could not get measurement speed')
 
