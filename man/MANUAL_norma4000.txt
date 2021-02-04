@@ -617,13 +617,13 @@ Contents:
     import norma4000
     import time
 
-        if __name__ == '__main__':
-            norma = norma4000.NORMA4000('172.16.65.32', 23)
-            norma.rst()
-            time.sleep(1)
+    if __name__ == '__main__':
+        norma = norma4000.NORMA4000('172.16.65.32', 23)
+        norma.rst()
+        time.sleep(1)
 
-            norma.watt_meth(3)
-            time.sleep(1)
-            print(norma.volt('trms', 130))
+        norma.watt_meth(3)
+        time.sleep(1)
+        print(norma.volt('trms', 130))
 
     After every command without a return there must be a timeout so that the device can process the command.
