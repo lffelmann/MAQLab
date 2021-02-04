@@ -55,6 +55,10 @@ FUNC_PWR  = 'pwr'
 
 class SM70AR24:
 
+    # max output set?
+    max_volt = False
+    max_curr = False
+
     # value of max output voltage and current
     value_max_volt = MAX_VOLT
     value_max_curr = MAX_CURR
@@ -71,6 +75,8 @@ class SM70AR24:
             time.sleep(1)
             self.set_max_value(FUNC_CURR, MAX_CURR)
             time.sleep(1)
+            self.max_volt = True
+            self.max_curr = True
         except:
             raise Exception("Error: Could not connect")
 
@@ -106,6 +112,10 @@ class SM70AR24:
         try:
             msg = bytearray('*RST\r\n', 'utf-8')
             self.send_msg(msg, False)
+            self.value_max_volt = MAX_VOLT
+            self.value_max_curr = MAX_CURR
+            self.max_volt = False
+            self.max_curr = False
         except:
             raise Exception('Error: Could not reset device')
 
@@ -126,8 +136,10 @@ class SM70AR24:
 
             if func == FUNC_VOLT:                                                   # if func is volt -> value in variable max volt
                 self.value_max_volt = value
+                self.max_volt = True
             elif func == FUNC_CURR:                                                 # if func is curr -> value in variable max curr
                 self.value_max_curr = value
+                self.max_curr = True
         except:
             raise Exception('Error: Could not set max output value')
 
@@ -155,6 +167,8 @@ class SM70AR24:
     # set output voltage and current
     def set_value(self, func, value):
         try:
+            if self.check_max_value() is False:                                     # check if max output is set
+                raise Exception('Error: Max output is not set')
             if self.check_func('set', func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
             if self.check_value(func, value) is False:                              # check if value is available
@@ -186,6 +200,8 @@ class SM70AR24:
     # measure voltage, current and power
     def meas(self, func):
         try:
+            if self.check_max_value() is False:                                     # check if max output is set
+                raise Exception('Error: Max output is not set')
             if self.check_func('meas', func) is False:                              # check if func is available
                 raise Exception('Error: Function is unavailable')
 
@@ -226,6 +242,16 @@ class SM70AR24:
             elif func == FUNC_CURR and 0 <= value <= self.value_max_curr:
                 value_ok = True
             return value_ok
+        except:
+            return False
+
+    # check if max value is set
+    def check_max_value(self):
+        try:
+            max_val = False
+            if self.max_volt == True and self.max_curr == True:
+                max_val = True
+            return max_val
         except:
             return False
 
