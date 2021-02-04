@@ -1,0 +1,243 @@
+-----------------------------------
+MAQLab - Manual lib sm70ar24.py
+-----------------------------------
+
+Contents:
+    1 Needed libraries                                                              32
+    2 Functions                                                                     38
+        2.1 Initial                                                                 41
+        2.2 Close Connection                                                        50
+        2.3 Get ID                                                                  57
+        2.4 Reset                                                                   64
+        2.5 Source                                                                  71
+            2.5.1 Set max output voltage and current                                74
+                2.5.1.1 Set max output voltage                                      87
+                2.5.1.2	Set max output current                                      97
+            2.5.2 Get set max output voltage and current                            107
+                2.5.2.1	Get set max output voltage                                  118
+                2.5.2.2	Get set max output current                                  125
+            2.5.3 Set output voltage and current                                    132
+                2.5.3.1	Set output voltage                                          144
+                2.5.3.2	Set output current                                          154
+            2.5.4 Get set output voltage and current                                164
+                2.5.4.1	Set output voltage                                          175
+                2.5.4.2	Set output current                                          185
+        2.6 Measure voltage, current and power                                      195
+            2.6.1 Measure voltage                                                   207
+            2.6.2 Measure current                                                   214
+            2.6.3 Measure power                                                     221
+    3 Example Program                                                               228
+
+-------------------------
+1 Needed libraries
+-------------------------
+    + time
+    + socket
+
+-------------------------
+2 Functions
+-------------------------
+--------------------
+2.1 Initial
+--------------------
+    SM70AR24(ip_add, port)
+
+    Arguments:
+        ip_add	= IP address of device
+        port	= Port of device (normally 8462)
+
+--------------------
+2.2	Close Connection
+--------------------
+    close()
+
+    Return: None
+
+--------------------
+2.3	Get ID
+--------------------
+    id()
+
+    Return: ID of device
+
+--------------------
+2.4	Reset
+--------------------
+    rst()
+
+    After a reset the max output voltage and current must be set.
+
+--------------------
+2.5	Source
+--------------------
+---------------
+2.5.1	Set max output voltage and current
+---------------
+    set_max_value(func, value)
+
+    Arguments:
+        func 	= FUNC_VOLT	...set max output voltage
+	            = FUNC_CURR	...set max output current
+        value	= 1...70	...voltage
+	            = 1...24	...current
+
+    Return: None
+
+----------
+2.5.1.1	Set max output voltage
+----------
+    volt_max_out = value
+
+    Arguments:
+        value	= 1...70
+
+    Return: None
+
+----------
+2.5.1.2	Set max output current
+----------
+    curr_max_out = value
+
+    Arguments:
+        value	= 1...24
+
+    Return: None
+
+---------------
+2.5.2	Get set max output voltage and current
+---------------
+    get_max_value(func)
+
+    Arguments:
+        func 	= FUNC_VOLT	...get set max output voltage
+	            = FUNC_CURR	...get set max output current
+
+    Return: set max output voltage or current
+
+----------
+2.5.2.1	Get set max output voltage
+----------
+    volt_max_out
+
+    Return: set max output voltage
+
+----------
+2.5.2.2	Get set max output current
+----------
+    curr_max_out
+
+    Return: set max output voltage
+
+---------------
+2.5.3	Set output voltage and current
+---------------
+    set_value(func, value)
+
+    Arguments:
+        func 	= FUNC_VOLT	...set output voltage
+            	= FUNC_CURR	...set output current
+        value	= value of output voltage or current
+
+    Return: None
+
+----------
+2.5.3.1	Set output voltage
+----------
+    volt_out = value
+
+    Arguments:
+        value	= value of output voltage
+
+    Return: None
+
+----------
+2.5.3.2	Set output current
+----------
+    curr_out = value
+
+    Arguments:
+        value	= value of output current
+
+    Return: None
+
+---------------
+2.5.4	Get set output voltage and current
+---------------
+    get_value(func)
+
+    Arguments:
+        func 	= FUNC_VOLT	...get set output voltage
+	            = FUNC_CURR	...get set output current
+
+    Return: set output voltage or current
+
+----------
+2.5.4.1	Set output voltage
+----------
+    volt_out = value
+
+    Arguments:
+        value	= value of output voltage
+
+    Return: None
+
+----------
+2.5.4.2	Set output current
+----------
+    curr_out = value
+
+    Arguments:
+        value	= value of output current
+
+    Return: None
+
+--------------------
+2.6	Measure voltage, current and power
+--------------------
+    meas(func)
+
+    Arguments:
+        func 	= FUNC_VOLT	...measure voltage
+	            = FUNC_CURR	...measure current
+	            = FUNC_PWR		...measure power
+
+    Return: measured voltage, current or power
+
+---------------
+2.6.1	Measure voltage
+---------------
+    volt
+
+    Return: measured voltage
+
+---------------
+2.6.2	Measure current
+---------------
+    curr
+
+    Return: measured current
+
+---------------
+2.6.3	Measure power
+---------------
+    pwr
+
+    Return: measured power
+
+-------------------------
+3 Example Program
+-------------------------
+    import sm70ar24
+    import time
+
+    if __name__ == '__main__':
+        delta = sm70ar24.SM70AR24('172.16.65.116', 8462)
+
+        delta.set_value(sm70ar24.FUNC_VOLT, 12)
+        time.sleep(1)
+
+        print(delta.meas(sm70ar24.FUNC_VOLT))
+        print(delta.meas(sm70ar24.FUNC_CURR))
+        print(delta.meas(sm70ar24.FUNC_PWR))
+
+    After every command without a return there must be a timeout so that the device can process the command.
