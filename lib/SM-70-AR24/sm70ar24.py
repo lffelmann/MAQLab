@@ -44,6 +44,8 @@ import time
 
 BUFFER = 1024
 
+DEFAULT_PORT = 8462
+
 MAX_VOLT = 70
 MAX_CURR = 24
 
@@ -59,7 +61,7 @@ class SM70AR24:
 
     '''CONNECTION + INITIAL'''
     # initial SM70AR24, establish connection, set max output values
-    def __init__(self, ip_add, port):
+    def __init__(self, ip_add, port=DEFAULT_PORT):
         try:
             self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)       # establish connection
             self.tcp_con.settimeout(10)
