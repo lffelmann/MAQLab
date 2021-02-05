@@ -298,7 +298,7 @@ Arguments:
     Current AC: curr_ac
     Current DC: curr_dc
     Resistance: res
-    Freqency:	freq
+    Frequency:	freq
     Period:	    per
     Diode:	    diod
     Continuity:	cont
