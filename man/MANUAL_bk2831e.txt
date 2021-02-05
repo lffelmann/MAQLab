@@ -1,0 +1,335 @@
+-----------------------------------
+MAQLab - Manual lib bk2831e.py
+-----------------------------------
+
+Contents:
+    1 Needed libraries                                                              32
+    2 Functions                                                                     38
+        2.1 Initial                                                                 41
+        2.2 Close Connection                                                        50
+        2.3 Get ID                                                                  57
+        2.4 Reset                                                                   64
+        2.5 Display                                                                 71
+            2.5.1 Enable/Disable display                                            74
+            2.5.2 Get if display is enabled/disabled                                107
+        2.6 Trigger                                                                 195
+            2.6.1 Select trigger
+            2.6.2 Get selected trigger
+            2.6.3 Trigger measurement
+        2.7	Range
+            2.7.1 Set range
+            2.7.2 Get range
+        2.8 Reference
+            2.8.1 Set reference
+            2.8.2 Get reference
+        2.9 Measurement speed
+            2.9.1 Set measurement speed
+            2.9.2 Get measurement speed
+            2.10 Measure
+    3 Example Program
+
+-------------------------
+1 Needed libraries
+-------------------------
+    + time
+    + pyserial
+
+-------------------------
+2 Functions
+-------------------------
+--------------------
+2.1 Initial
+--------------------
+    BK2831E(port, baudrate)
+
+    Arguments:
+    port = serial port
+    baudrate = baudrate (normally 9600)
+
+--------------------
+2.2 Close Connection
+--------------------
+    close()
+
+    Return: None
+
+--------------------
+2.3 Get ID
+--------------------
+    id()
+
+    Return: ID of device
+
+--------------------
+2.4	Reset
+--------------------
+    rst()
+
+    Return: None
+
+--------------------
+2.5	Display
+--------------------
+---------------
+2.5.1 Enable/Disable display
+---------------
+    set_display(state)
+    display = state
+
+    Arguments:
+    state = ON
+	      = OFF
+
+    Return: None
+
+---------------
+2.5.2 Get if display is enabled/disabled
+---------------
+    get_display()
+    display
+
+    Return: ON, OFF
+
+--------------------
+2.6 Trigger
+--------------------
+---------------
+2.6.1 Select trigger
+---------------
+    set_trg(trg)
+    sel_trg = trg
+
+    Arguments:
+        trg = IMM ...internal trigger (measurement speed can be selected in an extra command)
+	        = BUS ...trigger via BUS interface (measurement can be triggered with a command)
+	        = MAN ...press 'Trig' – button to trigger
+
+    Return: None
+
+---------------
+2.6.2 Get selected trigger
+---------------
+    get_trg()
+    sel_trg
+
+    Return: IMM, BUS, MAN
+
+---------------
+2.6.3 Trigger measurement
+---------------
+    trg()
+
+    Return: None
+
+    Only available if selected trigger is BUS.
+
+--------------------
+2.7 Range
+--------------------
+---------------
+2.7.1 Set range
+---------------
+    set_range(func, range)
+    Voltage AC:	                    volt_ac_range = range
+    Voltage DC:                     volt_dc_range = range
+    Current AC: 	                curr_ac_range = range
+    Current DC: 	                curr_dc_range = range
+    Resistance: 	                res_range = range
+    Frequency (threshold voltage):  freq_range = range
+    Period (threshold voltage):     per_range = range
+
+    Arguments:
+    func = FUNC_VOLT_AC ...Voltage AC
+	     = FUNC_VOLT_DC ...Voltage DC
+	     = FUNC_CURR_AC ...Current AC
+	     = FUNC_CURR_DC ...Current DC
+	     = FUNC_RES	 ...Resistance
+	     = FUNC_FREQ	 ...Frequency (threshold voltage)
+	     = FUNC_PER	 ...Period (threshold voltage)
+    range = DEF	                  ...default range (except Frequency and Period)
+	      = MIN	                  ...minimum range (except Frequency and Period)
+	      = MAX	                  ...maximum range (except Frequency and Period)
+	      = AUTO	              ...automatic range (except Frequency and Period)
+	      = 0.2, 2, 20, 200, 750  ...Voltage AC
+	      = 0.2, 2, 20, 200, 1000 ...Voltage DC
+	      = 0 to 20	              ...Current AC
+	      = -20 to 20	          ...Current DC
+	      = 0 to 20e6	          ...Resistance
+	      = 0 to 1010	          ...Frequency and Period threshold voltage range
+
+    Return: None
+
+---------------
+2.7.2 Get range
+---------------
+    get_range(func)
+    Voltage AC:	                    volt_ac_range
+    Voltage DC:	                    volt_dc_range
+    Current AC: 	                curr_ac_range
+    Current DC: 	                curr_dc_range
+    Resistance: 	                res_range
+    Frequency (threshold voltage):  freq_range
+    Period (threshold voltage):	    per_range
+
+    Arguments:
+        func = FUNC_VOLT_AC	...Voltage AC
+	         = FUNC_VOLT_DC	...Voltage DC
+	         = FUNC_CURR_AC	...Current AC
+	         = FUNC_CURR_DC	...Current DC
+	         = FUNC_RES	    ...Resistance
+	         = FUNC_FREQ	...Frequency (threshold voltage)
+	         = FUNC_PER	    ...Period (threshold voltage)
+
+    Return: AUTO, range
+
+--------------------
+2.8 Reference
+--------------------
+---------------
+2.8.1 Set reference
+---------------
+    set_ref(func, ref)
+    Voltage AC: volt_ac_ref = ref
+    Voltage DC:	volt_dc_ref = ref
+    Current AC: curr_ac_ref = ref
+    Current DC: curr_dc_ref = ref
+    Resistance: res_ref = ref
+    Frequency:	freq_ref = ref
+    Period: 	per_ref = ref
+
+Arguments:
+    func = FUNC_VOLT_AC	...Voltage AC
+	     = FUNC_VOLT_DC	...Voltage DC
+	     = FUNC_CURR_AC	...Current AC
+	     = FUNC_CURR_DC	...Current DC
+	     = FUNC_RES	    ...Resistance
+	     = FUNC_FREQ	...Frequency
+	     = FUNC_PER	    ...Period
+    ref	= OFF	          ...no reference
+	    = DEF	          ...default reference
+	    = MIN	          ...minimum reference
+	    = MAX	          ...maximum reference
+	    = ACQ	          ...acquire input signal as reference
+	    = -757.5 to 757.5 ...Voltage AC
+	    = -1010 to 1010	  ...Voltage DC
+	    = -20 to 20	      ...Current AC
+	    = 0 to 20	      ...Current DC
+	    = 0 to 20e6	      ...Resistance
+	    = 0 to 1e6	      ...Frequency
+	    = 0 to 1	      ...Period
+
+    Return: None
+
+---------------
+2.8.2 Get reference
+---------------
+    get_ref(func)
+    Voltage AC:	volt_ac_ref
+    Voltage DC:	volt_dc_ref
+    Current AC: curr_ac_ref
+    Current DC: curr_dc_ref
+    Resistance: res_ref
+    Frequency:	freq_ref
+    Period:	    per_ref
+
+Arguments:
+    func = FUNC_VOLT_AC	...Voltage AC
+	     = FUNC_VOLT_DC	...Voltage DC
+	     = FUNC_CURR_AC	...Current AC
+	     = FUNC_CURR_DC	...Current DC
+	     = FUNC_RES	    ...Resistance
+	     = FUNC_FREQ	...Frequency
+	     = FUNC_PER	    ...Period
+
+    Return: OFF, reference
+
+--------------------
+2.9	Measurement speed
+--------------------
+---------------
+2.9.1 Set measurement speed
+---------------
+    set_meas_speed(func, speed)
+    Voltage AC:	volt_ac_speed = speed
+    Voltage DC:	volt_dc_speed = speed
+    Current AC:	curr_ac_speed = speed
+    Current DC:	curr_dc_speed = speed
+    Resistance:	res_speed = speed
+
+Arguments:
+    func = FUNC_VOLT_AC	...Voltage AC
+	     = FUNC_VOLT_DC	...Voltage DC
+	     = FUNC_CURR_AC	...Current AC
+	     = FUNC_CURR_DC	...Current DC
+	     = FUNC_RES	    ...Resistance
+    speed = FAST ...fast measurement speed (0.1/frequency of power line)
+	      = MED	 ...medium measurement speed (1/frequency of power line)
+	      = SLOW ...slow measurement speed (10/frequency of power line)
+	      = MAX	 ...maximum measurement speed (0.1/frequency of power line)
+	      = DEF	 ...default measurement speed (1/frequency of power line)
+	      = MIN	 ...minimum measurement speed (10/frequency of power line)
+
+    Return: None
+
+---------------
+2.9.2 Get measurement speed
+---------------
+    get_meas_speed(func)
+    Voltage AC:	volt_ac_speed
+    Voltage DC:	volt_dc_speed
+    Current AC:	curr_ac_speed
+    Current DC:	curr_dc_speed
+    Resistance:	res_speed
+
+    Arguments:
+        func = FUNC_VOLT_AC	...Voltage AC
+	         = FUNC_VOLT_DC	...Voltage DC
+	         = FUNC_CURR_AC	...Current AC
+	         = FUNC_CURR_DC	...Current DC
+	         = FUNC_RES	    ...Resistance
+
+    Return: FAST, MED, SLOW
+--------------------
+2.10 Measure
+--------------------
+    meas(func)
+    Voltage AC:	volt_ac
+    Voltage DC:	volt_dc
+    Current AC: curr_ac
+    Current DC: curr_dc
+    Resistance: res
+    Freqency:	freq
+    Period:	    per
+    Diode:	    diod
+    Continuity:	cont
+
+    Arguments:
+    func = FUNC_VOLT_AC	...Voltage AC
+	     = FUNC_VOLT_DC	...Voltage DC
+	     = FUNC_CURR_AC	...Current AC
+	     = FUNC_CURR_DC	...Current DC
+	     = FUNC_RES	    ...Resistance
+	     = FUNC_FREQ	...Frequency
+	     = FUNC_PER	    ...Period
+         = FUNC_DIOD	...Diode
+    	 = FUNC_CONT	...Continuity
+
+    Return: measured value
+
+-------------------------
+3	Example Program
+-------------------------
+    import bk2831e
+    import time
+
+    if __name__ == '__main__':
+        device = bk2831e.BK2831E('COM3', 9600)
+
+        device.set_range(bk2831e.FUNC_VOLT_AC, 20)
+        time.sleep(1)
+        device.set_ref(bk2831e.FUNC_VOLT_AC, bk2831e.ACQ)
+        time.sleep(1)
+
+        print(bk2831e.FUNC_VOLT_AC)
+
+    After every command without a return there must be a timeout so that the device can process the command.
