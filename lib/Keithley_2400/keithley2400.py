@@ -1,6 +1,8 @@
 import serial
 import time
 
+TIMEOUT = 1
+BUFFER = 1024
 DEFAULT_BAUDRATE = 9600
 
 
