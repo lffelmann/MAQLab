@@ -36,3 +36,20 @@ class KEITHLEY2400:
                 return data
         except:
             raise Exception('Error: Writing and/or reading data')
+
+    '''ID OF DEVICE'''
+    def id(self):
+        try:
+            msg = bytearray('*IDN?\r\n', 'utf-8')
+            data = self.send_msg(msg, True)
+            return data
+        except:
+            raise Exception('Error: Could not get ID')
+
+    '''RESET DEVICE'''
+    def rst(self):
+        try:
+            msg = bytearray('*RST\r\n', 'utf-8')
+            self.send_msg(msg, False)
+        except:
+            raise Exception('Error: Could not reset device')
