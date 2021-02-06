@@ -121,7 +121,7 @@ class SM70AR24:
 
     '''MAX VALUE'''
     # set max output value of voltage and current
-    def set_max_value(self, func, value):
+    def set_max_out(self, func, value):
         try:
             if self.check_func('set', func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
@@ -144,7 +144,7 @@ class SM70AR24:
             raise Exception('Error: Could not set max output value')
 
     # get set max output voltage and current
-    def get_max_value(self, func):
+    def get_max_out(self, func):
         try:
             if self.check_func('set', func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
@@ -165,7 +165,7 @@ class SM70AR24:
 
     '''SOURCE'''
     # set output voltage and current
-    def set_value(self, func, value):
+    def set_out(self, func, value):
         try:
             if self.check_max_value() is False:                                     # check if max output is set
                 raise Exception('Error: Max output is not set')
@@ -183,7 +183,7 @@ class SM70AR24:
             raise Exception('Error: Could not set output value')
 
     # get set output voltage and current
-    def get_value(self, func):
+    def get_out(self, func):
         try:
             if self.check_func('set', func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
@@ -284,25 +284,25 @@ class SM70AR24:
     # current
     def _get_max_curr(self):
         try:
-            return self.get_max_value(FUNC_CURR)
+            return self.get_max_out(FUNC_CURR)
         except:
             raise
 
     def _set_max_curr(self, value):
         try:
-            self.set_max_value(FUNC_CURR, value)
+            self.set_max_out(FUNC_CURR, value)
         except:
             raise
 
     def _get_curr(self):
         try:
-            return self.get_value(FUNC_CURR)
+            return self.get_out(FUNC_CURR)
         except:
             raise
 
     def _set_curr(self, value):
         try:
-            self.set_value(FUNC_CURR, value)
+            self.set_out(FUNC_CURR, value)
         except:
             raise
 
@@ -315,25 +315,25 @@ class SM70AR24:
     # voltage
     def _get_max_volt(self):
         try:
-            return self.get_max_value(FUNC_VOLT)
+            return self.get_max_out(FUNC_VOLT)
         except:
             raise
 
     def _set_max_volt(self, value):
         try:
-            self.set_max_value(FUNC_VOLT, value)
+            self.set_max_out(FUNC_VOLT, value)
         except:
             raise
 
     def _get_volt(self):
         try:
-            return self.get_value(FUNC_VOLT)
+            return self.get_out(FUNC_VOLT)
         except:
             raise
 
     def _set_volt(self, value):
         try:
-            self.set_value(FUNC_VOLT, value)
+            self.set_out(FUNC_VOLT, value)
         except:
             raise
 
@@ -363,13 +363,3 @@ class SM70AR24:
 
     # power
     pwr = property(_meas_pwr)
-
-
-
-
-
-
-
-
-
-

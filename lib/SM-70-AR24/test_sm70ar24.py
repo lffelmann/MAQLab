@@ -23,16 +23,16 @@ if __name__ == '__main__':
 
     print('\n-------------------------------\nVOLTAGE\n------------------------------\n')
 
-    print('set_value(volt, 20): ')
+    print('set_out(volt, 20): ')
     try:
-        device.set_value(volt, 20)
+        device.set_out(volt, 20)
     except Exception as e:
         print(e)
     time.sleep(1)
 
-    print('get_value(volt): ')
+    print('get_out(volt): ')
     try:
-        print(device.get_value(volt))
+        print(device.get_out(volt))
     except Exception as e:
         print(e)
 
@@ -72,29 +72,29 @@ if __name__ == '__main__':
         print(e)
     time.sleep(1)
 
-    print('set_max_value(volt, 70): ')
+    print('set_max_out(volt, 70): ')
     try:
-        device.set_max_value(volt, 70)
+        device.set_max_out(volt, 70)
     except Exception as e:
         print(e)
     time.sleep(1)
 
-    print('get_max_value(volt): ')
+    print('get_max_out(volt): ')
     try:
-        print(device.get_max_value(volt))
+        print(device.get_max_out(volt))
     except Exception as e:
         print(e)
 
     print('set_max_value(curr, 24): ')
     try:
-        device.set_max_value(curr, 24)
+        device.set_max_out(curr, 24)
     except Exception as e:
         print(e)
     time.sleep(1)
 
     print('get_max_value(curr): ')
     try:
-        print(device.get_max_value(curr))
+        print(device.get_max_out(curr))
     except Exception as e:
         print(e)
 
@@ -102,14 +102,14 @@ if __name__ == '__main__':
 
     print('set_value(curr, 2): ')
     try:
-        device.set_value(curr, 2)
+        device.set_out(curr, 2)
     except Exception as e:
         print(e)
     time.sleep(1)
 
     print('get_value(curr): ')
     try:
-        print(device.get_value(curr))
+        print(device.get_out(curr))
     except Exception as e:
         print(e)
 

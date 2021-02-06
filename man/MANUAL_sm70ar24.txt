@@ -73,7 +73,7 @@ Contents:
 ---------------
 2.5.1	Set max output voltage and current
 ---------------
-    set_max_value(func, value)
+    set_max_out(func, value)
 
     Arguments:
         func 	= FUNC_VOLT	...set max output voltage
@@ -106,7 +106,7 @@ Contents:
 ---------------
 2.5.2	Get set max output voltage and current
 ---------------
-    get_max_value(func)
+    get_max_out(func)
 
     Arguments:
         func 	= FUNC_VOLT	...get set max output voltage
@@ -131,7 +131,7 @@ Contents:
 ---------------
 2.5.3	Set output voltage and current
 ---------------
-    set_value(func, value)
+    set_out(func, value)
 
     Arguments:
         func 	= FUNC_VOLT	...set output voltage
@@ -163,7 +163,7 @@ Contents:
 ---------------
 2.5.4	Get set output voltage and current
 ---------------
-    get_value(func)
+    get_out(func)
 
     Arguments:
         func 	= FUNC_VOLT	...get set output voltage
@@ -233,7 +233,7 @@ Contents:
     if __name__ == '__main__':
         delta = sm70ar24.SM70AR24('172.16.65.116', 8462)
 
-        delta.set_value(sm70ar24.FUNC_VOLT, 12)
+        delta.set_out(sm70ar24.FUNC_VOLT, 12)
         time.sleep(1)
 
         print(delta.meas(sm70ar24.FUNC_VOLT))
