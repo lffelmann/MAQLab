@@ -305,9 +305,9 @@ class BK2831E:
             msg = bytearray(':DISP:ENAB?\r\n', 'utf-8')                       # get state of display
             data = self.send_msg(msg, True)
 
-            if data == 'ON':                                                  # if display is on -> return on
+            if data == 'ON' or data == '1':                                   # if display is on -> return on
                 return ON
-            elif data == 'OFF':                                               # if display is off -> return off
+            elif data == 'OFF' or data == '0':                                # if display is off -> return off
                 return OFF
         except:
             raise Exception('Error: Could not get state of display')
