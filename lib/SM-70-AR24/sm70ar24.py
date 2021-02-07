@@ -64,7 +64,7 @@ class SM70AR24:
     value_max_curr = MAX_CURR
 
     '''CONNECTION + INITIAL'''
-    # initial SM70AR24, establish connection, set max output values
+    # initial SM70AR24, establish connection
     def __init__(self, ip_add, port=DEFAULT_PORT):
         try:
             self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
