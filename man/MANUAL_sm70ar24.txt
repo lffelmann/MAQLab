@@ -3,30 +3,19 @@ MAQLab - Manual lib sm70ar24.py
 -----------------------------------
 
 Contents:
-    1 Needed libraries                                                              32
-    2 Functions                                                                     38
-        2.1 Initial                                                                 41
-        2.2 Close Connection                                                        50
-        2.3 Get ID                                                                  57
-        2.4 Reset                                                                   64
-        2.5 Source                                                                  71
-            2.5.1 Set max output voltage and current                                74
-                2.5.1.1 Set max output voltage                                      87
-                2.5.1.2	Set max output current                                      97
-            2.5.2 Get set max output voltage and current                            107
-                2.5.2.1	Get set max output voltage                                  118
-                2.5.2.2	Get set max output current                                  125
-            2.5.3 Set output voltage and current                                    132
-                2.5.3.1	Set output voltage                                          144
-                2.5.3.2	Set output current                                          154
-            2.5.4 Get set output voltage and current                                164
-                2.5.4.1	Set output voltage                                          175
-                2.5.4.2	Set output current                                          185
-        2.6 Measure voltage, current and power                                      195
-            2.6.1 Measure voltage                                                   207
-            2.6.2 Measure current                                                   214
-            2.6.3 Measure power                                                     221
-    3 Example Program                                                               228
+    1 Needed libraries                                                              21
+    2 Functions                                                                     27
+        2.1 Initial                                                                 30
+        2.2 Close Connection                                                        39
+        2.3 Get ID                                                                  46
+        2.4 Reset                                                                   53
+        2.5 Source                                                                  60
+            2.5.1 Set max output                                                    63
+            2.5.2 Get set max output                                                78
+            2.5.3 Set output                                                        91
+            2.5.4 Get set output                                                    105
+        2.6 Measure                                                                 118
+    3 Example Program                                                               133
 
 -------------------------
 1 Needed libraries
@@ -71,9 +60,11 @@ Contents:
 2.5	Source
 --------------------
 ---------------
-2.5.1	Set max output voltage and current
+2.5.1 Set max output
 ---------------
     set_max_out(func, value)
+    Voltage: volt_max_out = value
+    Current: curr_max_out = value
 
     Arguments:
         func 	= FUNC_VOLT	...set max output voltage
@@ -83,30 +74,12 @@ Contents:
 
     Return: None
 
-----------
-2.5.1.1	Set max output voltage
-----------
-    volt_max_out = value
-
-    Arguments:
-        value	= 1...70
-
-    Return: None
-
-----------
-2.5.1.2	Set max output current
-----------
-    curr_max_out = value
-
-    Arguments:
-        value	= 1...24
-
-    Return: None
-
 ---------------
-2.5.2	Get set max output voltage and current
+2.5.2 Get set max output
 ---------------
     get_max_out(func)
+    Voltage: volt_max_out
+    Current: curr_max_out
 
     Arguments:
         func 	= FUNC_VOLT	...get set max output voltage
@@ -114,24 +87,12 @@ Contents:
 
     Return: set max output voltage or current
 
-----------
-2.5.2.1	Get set max output voltage
-----------
-    volt_max_out
-
-    Return: set max output voltage
-
-----------
-2.5.2.2	Get set max output current
-----------
-    curr_max_out
-
-    Return: set max output voltage
-
 ---------------
-2.5.3	Set output voltage and current
+2.5.3 Set output
 ---------------
     set_out(func, value)
+    Voltage: volt_out = value
+    Current: curr_out = value
 
     Arguments:
         func 	= FUNC_VOLT	...set output voltage
@@ -140,30 +101,12 @@ Contents:
 
     Return: None
 
-----------
-2.5.3.1	Set output voltage
-----------
-    volt_out = value
-
-    Arguments:
-        value	= value of output voltage
-
-    Return: None
-
-----------
-2.5.3.2	Set output current
-----------
-    curr_out = value
-
-    Arguments:
-        value	= value of output current
-
-    Return: None
-
 ---------------
-2.5.4	Get set output voltage and current
+2.5.4 Get set output
 ---------------
     get_out(func)
+    Voltage: volt_out
+    Current: curr_out
 
     Arguments:
         func 	= FUNC_VOLT	...get set output voltage
@@ -171,30 +114,13 @@ Contents:
 
     Return: set output voltage or current
 
-----------
-2.5.4.1	Set output voltage
-----------
-    volt_out = value
-
-    Arguments:
-        value	= value of output voltage
-
-    Return: None
-
-----------
-2.5.4.2	Set output current
-----------
-    curr_out = value
-
-    Arguments:
-        value	= value of output current
-
-    Return: None
-
 --------------------
-2.6	Measure voltage, current and power
+2.6 Measure
 --------------------
     meas(func)
+    Voltage: volt
+    Current: curr
+    Power:   pwr
 
     Arguments:
         func 	= FUNC_VOLT	...measure voltage
@@ -202,27 +128,6 @@ Contents:
 	            = FUNC_PWR		...measure power
 
     Return: measured voltage, current or power
-
----------------
-2.6.1	Measure voltage
----------------
-    volt
-
-    Return: measured voltage
-
----------------
-2.6.2	Measure current
----------------
-    curr
-
-    Return: measured current
-
----------------
-2.6.3	Measure power
----------------
-    pwr
-
-    Return: measured power
 
 -------------------------
 3 Example Program
