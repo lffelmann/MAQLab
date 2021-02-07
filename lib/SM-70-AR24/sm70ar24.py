@@ -67,16 +67,9 @@ class SM70AR24:
     # initial SM70AR24, establish connection, set max output values
     def __init__(self, ip_add, port=DEFAULT_PORT):
         try:
-            self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)       # establish connection
+            self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.tcp_con.settimeout(10)
             self.tcp_con.connect((ip_add, port))
-
-            self.set_max_value(FUNC_VOLT, MAX_VOLT)                                 # set max output values
-            time.sleep(1)
-            self.set_max_value(FUNC_CURR, MAX_CURR)
-            time.sleep(1)
-            self.max_volt = True
-            self.max_curr = True
         except:
             raise Exception("Error: Could not connect")
 
