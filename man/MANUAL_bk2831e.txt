@@ -11,22 +11,22 @@ Contents:
         2.4 Reset                                                                   64
         2.5 Display                                                                 71
             2.5.1 Enable/Disable display                                            74
-            2.5.2 Get if display is enabled/disabled                                107
-        2.6 Trigger                                                                 195
-            2.6.1 Select trigger
-            2.6.2 Get selected trigger
-            2.6.3 Trigger measurement
-        2.7	Range
-            2.7.1 Set range
-            2.7.2 Get range
-        2.8 Reference
-            2.8.1 Set reference
-            2.8.2 Get reference
-        2.9 Measurement speed
-            2.9.1 Set measurement speed
-            2.9.2 Get measurement speed
-            2.10 Measure
-    3 Example Program
+            2.5.2 Get if display is enabled/disabled                                86
+        2.6 Trigger                                                                 94
+            2.6.1 Select trigger                                                    97
+            2.6.2 Get selected trigger                                              110
+            2.6.3 Trigger measurement                                               118
+        2.7	Range                                                                   127
+            2.7.1 Set range                                                         130
+            2.7.2 Get range                                                         163
+        2.8 Reference                                                               186
+            2.8.1 Set reference                                                     189
+            2.8.2 Get reference                                                     224
+        2.9 Measurement speed                                                       247
+            2.9.1 Set measurement speed                                             250
+            2.9.2 Get measurement speed                                             275
+        2.10 Measure                                                                293
+    3 Example Program                                                               320
 
 -------------------------
 1 Needed libraries
