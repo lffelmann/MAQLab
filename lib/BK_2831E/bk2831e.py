@@ -276,13 +276,10 @@ class BK2831E:
             data = self.send_msg(msg, True)
 
             if data == 'IMMediate':                                           # if trigger is immediate -> return immediate
-                self.trg_selected = IMM
                 return IMM
             elif data == 'BUS':                                               # if trigger is bus -> return bus
-                self.trg_selected = BUS
                 return BUS
             elif data == 'MANual':                                            # if trigger is manual -> return manual
-                self.trg_selected = MAN
                 return MAN
 
         except:
