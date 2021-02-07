@@ -141,7 +141,7 @@ class NORMA4000:
     # wattmeter method 0...not set
     watt_methode = 0
 
-    # measurement method continuous False...set
+    # measurement method continuous False...not set
     cont_measurement = False
 
     # lists functions
