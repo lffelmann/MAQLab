@@ -317,7 +317,7 @@ Arguments:
     Return: measured value
 
 -------------------------
-3	Example Program
+3 Example Program
 -------------------------
     import bk2831e
     import time
