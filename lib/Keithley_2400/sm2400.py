@@ -6,7 +6,7 @@ BUFFER = 1024
 DEFAULT_BAUDRATE = 9600
 
 
-class KEITHLEY2400:
+class SM2400:
 
     '''CONNECTION + INITIAL'''
     # initial bk2381e, establish connection
