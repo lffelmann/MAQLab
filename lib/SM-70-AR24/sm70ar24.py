@@ -198,7 +198,7 @@ class SM70AR24:
 
     '''CHECK'''
     # check if func exist
-    def check_func(self, prg, func):
+    def check_func(self, func):
         try:
             func_ok = False
             if func == FUNC_VOLT or func == FUNC_CURR:
