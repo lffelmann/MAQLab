@@ -233,4 +233,9 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
 
+    try:
+        device.close()
+    except Exception as e:
+        print(e)
+
     input()
