@@ -234,6 +234,8 @@ class SM70AR24:
                 array_func = 'VOLT'
             elif func == FUNC_CURR:
                 array_func = 'CURR'
+            elif func == FUNC_CURR:
+                array_func = 'POW'
             return array_func
         except:
             raise Exception('Error: Could not convert func')
