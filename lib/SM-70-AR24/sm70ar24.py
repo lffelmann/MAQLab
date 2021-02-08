@@ -55,10 +55,6 @@ FUNC_PWR  = 'pwr'
 
 class SM70AR24:
 
-    # max output set?
-    max_volt = False
-    max_curr = False
-
     # value of max output voltage and current
     value_max_volt = MAX_VOLT
     value_max_curr = MAX_CURR
@@ -107,8 +103,6 @@ class SM70AR24:
             self.send_msg(msg, False)
             self.value_max_volt = MAX_VOLT
             self.value_max_curr = MAX_CURR
-            self.max_volt = False
-            self.max_curr = False
         except:
             raise Exception('Error: Could not reset device')
 
@@ -129,10 +123,8 @@ class SM70AR24:
 
             if func == FUNC_VOLT:                                                   # if func is volt -> value in variable max volt
                 self.value_max_volt = value
-                self.max_volt = True
             elif func == FUNC_CURR:                                                 # if func is curr -> value in variable max curr
                 self.value_max_curr = value
-                self.max_curr = True
         except:
             raise Exception('Error: Could not set max output value')
 
