@@ -265,7 +265,7 @@ class NORMA4000:
             array_func = self.convert_func(func)                                # convert func to array for msg
             array_phase = self.convert_phase(phase)                             # convert phase to array for msg
 
-            msg = bytearray('DATA? "VOLT' + array_phase + array_func + '"\r\n','utf-8')     # get voltage and return voltage
+            msg = bytearray('DATA? "VOLT' + str(array_phase) + str(array_func) + '"\r\n','utf-8')     # get voltage and return voltage
             data = self.send_msg(msg, True)
             return float(data)
         except:
@@ -587,7 +587,7 @@ class NORMA4000:
     # convert phase to array
     def convert_phase(self, phase):
         try:
-            phase = float(phase)
+            phase = int(phase)
             if phase == 130:
                 phase = ''
             else:

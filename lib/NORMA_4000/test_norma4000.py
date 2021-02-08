@@ -1,7 +1,7 @@
 import norma4000 as device
 import time
 
-IP = '192.168.0.78'
+IP = '192.168.0.88'
 PORT = 23
 
 if __name__ == '__main__':
@@ -16,11 +16,14 @@ if __name__ == '__main__':
 
     list_phase = [1, 2, 3, 12, 13, 23, 31, 123, 130]
 
+    norma.rst()
+
     try:
         print(norma.id())
     except Exception as e:
                 print(e)
 
+    print('watt_meth(2):')
     try:
         norma.watt_meth(2)
     except Exception as e:
@@ -90,11 +93,9 @@ if __name__ == '__main__':
             except Exception as e:
                 print(e)
 
-    try:
-        norma.rst()
-    except Exception as e:
-            print(e)
-
+    print('rst():')
+    norma.rst()
+    print('watt_meth(2):')
     try:
         norma.watt_meth(3)
     except Exception as e:
