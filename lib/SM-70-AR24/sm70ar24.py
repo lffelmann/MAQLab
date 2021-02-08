@@ -50,7 +50,6 @@ MAX_CURR = 24
 
 FUNC_VOLT = 'volt'
 FUNC_CURR = 'curr'
-FUNC_PWR  = 'pwr'
 
 class SM70AR24:
 
