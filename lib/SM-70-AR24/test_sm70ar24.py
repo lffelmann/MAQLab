@@ -98,6 +98,41 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
 
+    print('\n-------------------------------\nRESET\n------------------------------\n')
+
+    print('rst(): ')
+    try:
+        device.rst()
+    except Exception as e:
+        print(e)
+    time.sleep(1)
+
+    print('set_max_out(volt, 70): ')
+    try:
+        device.set_max_out(volt, 70)
+    except Exception as e:
+        print(e)
+    time.sleep(1)
+
+    print('get_max_out(volt): ')
+    try:
+        print(device.get_max_out(volt))
+    except Exception as e:
+        print(e)
+
+    print('set_max_value(curr, 24): ')
+    try:
+        device.set_max_out(curr, 24)
+    except Exception as e:
+        print(e)
+    time.sleep(1)
+
+    print('get_max_value(curr): ')
+    try:
+        print(device.get_max_out(curr))
+    except Exception as e:
+        print(e)
+
     print('\n-------------------------------\nCURRENT\n------------------------------\n')
 
     print('set_value(curr, 2): ')
