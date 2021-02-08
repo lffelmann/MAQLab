@@ -197,3 +197,5 @@ if __name__ == '__main__':
         print(device.pwr)
     except Exception as e:
         print(e)
+
+    input()
