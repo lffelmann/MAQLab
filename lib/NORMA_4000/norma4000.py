@@ -592,6 +592,7 @@ class NORMA4000:
                 phase = ''
             else:
                 phase = str(phase)
+                print(phase)
             return phase
         except:
             raise Exception('Error: Could not convert phase')
