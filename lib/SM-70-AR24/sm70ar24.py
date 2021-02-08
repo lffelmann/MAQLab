@@ -203,7 +203,7 @@ class SM70AR24:
     def check_func(self, prg, func):
         try:
             func_ok = False
-            if prg == 'set' or func == 'meas':
+            if prg == 'set' or prg == 'meas':
                 if func == FUNC_VOLT or func == FUNC_CURR:
                     func_ok = True
             if prg == 'meas':
