@@ -4,23 +4,22 @@ MAQLab - Manual lib sm70ar24.py
 
 Contents:
     1 Needed libraries                                                              21
-    2 Functions                                                                     27
-        2.1 Initial                                                                 30
-        2.2 Close Connection                                                        39
-        2.3 Get ID                                                                  46
-        2.4 Reset                                                                   53
-        2.5 Source                                                                  58
-            2.5.1 Set max output                                                    61
-            2.5.2 Get set max output                                                78
-            2.5.3 Set output                                                        91
-            2.5.4 Get set output                                                    105
-        2.6 Measure                                                                 118
-    3 Example Program                                                               133
+    2 Functions                                                                     26
+        2.1 Initial                                                                 29
+        2.2 Close Connection                                                        38
+        2.3 Get ID                                                                  45
+        2.4 Reset                                                                   52
+        2.5 Source                                                                  57
+            2.5.1 Set max output                                                    60
+            2.5.2 Get set max output                                                75
+            2.5.3 Set output                                                        88
+            2.5.4 Get set output                                                    102
+        2.6 Measure                                                                 115
+    3 Example Program                                                               128
 
 -------------------------
 1 Needed libraries
 -------------------------
-    + time
     + socket
 
 -------------------------
@@ -67,12 +66,10 @@ Contents:
     Arguments:
         func 	= FUNC_VOLT	...set max output voltage
 	            = FUNC_CURR	...set max output current
-        value	= 1...70	...voltage
-	            = 1...24	...current
+        value	= 0...70	...voltage
+	            = 0...24	...current
 
     Return: None
-
-    Max output must be set.
 
 ---------------
 2.5.2 Get set max output
@@ -120,12 +117,10 @@ Contents:
     meas(func)
     Voltage: volt
     Current: curr
-    Power:   pwr
 
     Arguments:
         func 	= FUNC_VOLT	...measure voltage
 	            = FUNC_CURR	...measure current
-	            = FUNC_PWR		...measure power
 
     Return: measured voltage, current or power
 
@@ -138,9 +133,7 @@ Contents:
     if __name__ == '__main__':
         delta = sm70ar24.SM70AR24('172.16.65.116', 8462)
 
-        delta.set_max_out(sm70ar24.FUNC_VOLT, 70)
-        time.sleep(1)
-        delta.set_max_out(sm70ar24.FUNC_CURR, 24)
+        delta.set_max_out(sm70ar24.FUNC_CURR, 2)
         time.sleep(1)
 
         delta.set_out(sm70ar24.FUNC_VOLT, 12)
@@ -148,6 +141,5 @@ Contents:
 
         print(delta.meas(sm70ar24.FUNC_VOLT))
         print(delta.meas(sm70ar24.FUNC_CURR))
-        print(delta.meas(sm70ar24.FUNC_PWR))
 
     After every command without a return there must be a timeout so that the device can process the command.
