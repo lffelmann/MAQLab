@@ -109,7 +109,7 @@ class SM70AR24:
     # set max output value of voltage and current
     def set_max_out(self, func, value):
         try:
-            if self.check_func('set', func) is False:                               # check if func is available
+            if self.check_func(func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
             if self.check_value(func, value) is False:                              # check if value is available
                 raise Exception('Error: Value is unavailable')
@@ -130,7 +130,7 @@ class SM70AR24:
     # get set max output voltage and current
     def get_max_out(self, func):
         try:
-            if self.check_func('set', func) is False:                               # check if func is available
+            if self.check_func(func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
 
             array_func = self.convert_func(func)                                    # convert func into array for msg
@@ -151,7 +151,7 @@ class SM70AR24:
     # set output voltage and current
     def set_out(self, func, value):
         try:
-            if self.check_func('set', func) is False:                               # check if func is available
+            if self.check_func(func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
             if self.check_value(func, value) is False:                              # check if value is available
                 return 'Error: Value out of range or other error'
@@ -167,7 +167,7 @@ class SM70AR24:
     # get set output voltage and current
     def get_out(self, func):
         try:
-            if self.check_func('set', func) is False:                               # check if func is available
+            if self.check_func(func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
 
             array_func = self.convert_func(func)                                    # convert func into array for msg
@@ -182,7 +182,7 @@ class SM70AR24:
     # measure voltage, current and power
     def meas(self, func):
         try:
-            if self.check_func('meas', func) is False:                              # check if func is available
+            if self.check_func(func) is False:                              # check if func is available
                 raise Exception('Error: Function is unavailable')
 
             array_func = self.convert_func(func)                                    # convert func into array for msg
@@ -202,12 +202,8 @@ class SM70AR24:
     def check_func(self, prg, func):
         try:
             func_ok = False
-            if prg == 'set' or prg == 'meas':
-                if func == FUNC_VOLT or func == FUNC_CURR:
-                    func_ok = True
-            if prg == 'meas':
-                if func == FUNC_PWR:
-                    func_ok = True
+            if func == FUNC_VOLT or func == FUNC_CURR:
+                func_ok = True
             return func_ok
         except:
             return False
@@ -234,8 +230,6 @@ class SM70AR24:
                 array_func = 'VOLT'
             elif func == FUNC_CURR:
                 array_func = 'CURR'
-            elif func == FUNC_CURR:
-                array_func = 'POW'
             return array_func
         except:
             raise Exception('Error: Could not convert func')
@@ -316,13 +310,6 @@ class SM70AR24:
         except:
             raise
 
-    # power
-    def _meas_pwr(self):
-        try:
-            return self.meas(FUNC_PWR)
-        except:
-            raise
-
     '''PROPERTY'''
     # current
     curr_max_out = property(_get_max_curr, _set_max_curr)
@@ -333,6 +320,3 @@ class SM70AR24:
     volt_max_out = property(_get_max_volt, _set_max_volt)
     volt_out = property(_get_volt, _set_volt)
     volt = property(_meas_volt)
-
-    # power
-    pwr = property(_meas_pwr)
