@@ -229,7 +229,7 @@ class SM70AR24:
     # convert func to array
     def convert_func(self, func):
         try:
-            array_func = None
+            array_func = ''
             if func == FUNC_VOLT:
                 array_func = 'VOLT'
             elif func == FUNC_CURR:
