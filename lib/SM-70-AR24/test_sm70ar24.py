@@ -1,8 +1,8 @@
 import sm70ar24 as sm
 import time
-import random
 
-IP_ADD = '172.16.1.1'
+IP_ADD = '172.16.65.115'
+PORT = 8462
 
 if __name__ == '__main__':
 
@@ -11,7 +11,7 @@ if __name__ == '__main__':
     pwr  = sm.FUNC_PWR
 
     try:
-        device = sm.SM70AR24(IP_ADD)
+        device = sm.SM70AR24(IP_ADD, PORT)
     except Exception as e:
             print(e)
 
