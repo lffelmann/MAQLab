@@ -301,7 +301,7 @@ class BK2831E:
     def get_display(self):
         try:
             msg = bytearray(':DISP:ENABle?\r\n', 'utf-8')                       # get state of display
-            data = self.send_msg(msg, True)
+            data = int(self.send_msg(msg, True))
             print(data)
             if data == 1:                                   # if display is on -> return on
                 return ON
