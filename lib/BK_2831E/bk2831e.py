@@ -217,6 +217,9 @@ class BK2831E:
             if receive is True:
                 data = self.serial_con.readline()
                 data = str(data, 'utf-8')
+                start = data.find('\r') + 1
+                end = data.find('\n')
+                data = data[start:end]
                 return data
         except:
             raise Exception('Error: Writing and/or reading data')
@@ -302,10 +305,10 @@ class BK2831E:
         try:
             msg = bytearray(':DISP:ENABle?\r\n', 'utf-8')                       # get state of display
             data = self.send_msg(msg, True)
-            data = int(data)
-            if data == 1:                                   # if display is on -> return on
+
+            if data == '1':                                   # if display is on -> return on
                 return ON
-            elif data == 0:                                # if display is off -> return off
+            elif data == '0':                                 # if display is off -> return off
                 return OFF
         except:
             raise Exception('Error: Could not get state of display')
