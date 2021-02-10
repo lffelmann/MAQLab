@@ -303,9 +303,9 @@ class BK2831E:
             msg = bytearray(':DISP:ENABle?\r\n', 'utf-8')                       # get state of display
             data = self.send_msg(msg, True)
             print(data)
-            if data == 'ON' or data == '1':                                   # if display is on -> return on
+            if data == 1:                                   # if display is on -> return on
                 return ON
-            elif data == 'OFF' or data == '0':                                # if display is off -> return off
+            elif data == 0:                                # if display is off -> return off
                 return OFF
         except:
             raise Exception('Error: Could not get state of display')
@@ -675,9 +675,9 @@ class BK2831E:
     def convert_state(self, state):
         try:
             if state == ON:
-                array_state = 'ON'
+                array_state = '1'
             elif state == OFF:
-                array_state = 'OFF'
+                array_state = '0'
             return array_state
         except:
             raise Exception('Error: Could not convert state')
