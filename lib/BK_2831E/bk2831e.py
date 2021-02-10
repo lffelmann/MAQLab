@@ -3,11 +3,6 @@
     ID:         id()
     Reset:      rst()
 
-    DISPLAY:
-        enable/disable Display:     (ON, OFF)
-            Set:    set_display(state)  Get:    get_display()
-                    display = state             display
-
     TRIGGER:
         select Trigger:     (IMM, BUS, MAN)
             Set:    set_trg(trg)        Get:    get_trg()
@@ -305,7 +300,7 @@ class BK2831E:
     # get state of display
     def get_display(self):
         try:
-            msg = bytearray(':DISP:ENAB?\r\n', 'utf-8')                       # get state of display
+            msg = bytearray(':DISP:ENABle?\r\n', 'utf-8')                       # get state of display
             data = self.send_msg(msg, True)
 
             if data == 'ON' or data == '1':                                   # if display is on -> return on
