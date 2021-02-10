@@ -215,8 +215,8 @@ class BK2831E:
             self.serial_con.flush()
 
             if receive is True:
-                data = self.serial_con.read_until('\n', BUFFER)
-                data = str(data, 'utf-8')
+                data = self.serial_con.readline()
+                #data = str(data, 'utf-8')
                 return data
         except:
             raise Exception('Error: Writing and/or reading data')
