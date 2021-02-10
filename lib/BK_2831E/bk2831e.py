@@ -273,13 +273,13 @@ class BK2831E:
             msg = bytearray(':TRIG:SOUR?\r\n', 'utf-8')                       # get selected trigger
             data = self.send_msg(msg, True)
 
-            if data == 'IMMediate':                                           # if trigger is immediate -> return immediate
+            if data == 'IMM':                                                 # if trigger is immediate -> return immediate
                 self.trg_selected = IMM
                 return IMM
             elif data == 'BUS':                                               # if trigger is bus -> return bus
                 self.trg_selected = BUS
                 return BUS
-            elif data == 'MANual':                                            # if trigger is manual -> return manual
+            elif data == 'MAN':                                               # if trigger is manual -> return manual
                 self.trg_selected = MAN
                 return MAN
 
@@ -678,9 +678,9 @@ class BK2831E:
     def convert_state(self, state):
         try:
             if state == ON:
-                array_state = '1'
+                array_state = 'ON'
             elif state == OFF:
-                array_state = '0'
+                array_state = 'OFF'
             return array_state
         except:
             raise Exception('Error: Could not convert state')

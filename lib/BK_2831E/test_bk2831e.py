@@ -97,7 +97,7 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
     time.sleep(1)
-
+'''
     print('\n-------------------------------\nTRIGGER\n------------------------------\n')
     
     for i in range(0, len(state_trigger)):
@@ -1329,4 +1329,4 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
 
-    input()
+'''
