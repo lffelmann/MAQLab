@@ -216,7 +216,7 @@ class BK2831E:
 
             if receive is True:
                 data = self.serial_con.readline()
-                #data = str(data, 'utf-8')
+                data = str(data, 'utf-8')
                 return data
         except:
             raise Exception('Error: Writing and/or reading data')
