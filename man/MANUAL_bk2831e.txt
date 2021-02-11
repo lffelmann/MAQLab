@@ -146,10 +146,7 @@ Contents:
 	     = FUNC_RES	 ...Resistance
 	     = FUNC_FREQ	 ...Frequency (threshold voltage)
 	     = FUNC_PER	 ...Period (threshold voltage)
-    range = DEF	                  ...default range (except Frequency and Period)
-	      = MIN	                  ...minimum range (except Frequency and Period)
-	      = MAX	                  ...maximum range (except Frequency and Period)
-	      = AUTO	              ...automatic range (except Frequency and Period)
+    range = AUTO	              ...automatic range (except Frequency and Period)
 	      = 0.2, 2, 20, 200, 750  ...Voltage AC
 	      = 0.2, 2, 20, 200, 1000 ...Voltage DC
 	      = 0 to 20	              ...Current AC
@@ -206,9 +203,6 @@ Arguments:
 	     = FUNC_FREQ	...Frequency
 	     = FUNC_PER	    ...Period
     ref	= OFF	          ...no reference
-	    = DEF	          ...default reference
-	    = MIN	          ...minimum reference
-	    = MAX	          ...maximum reference
 	    = ACQ	          ...acquire input signal as reference
 	    = -757.5 to 757.5 ...Voltage AC
 	    = -1010 to 1010	  ...Voltage DC
@@ -265,9 +259,6 @@ Arguments:
     speed = FAST ...fast measurement speed (0.1/frequency of power line)
 	      = MED	 ...medium measurement speed (1/frequency of power line)
 	      = SLOW ...slow measurement speed (10/frequency of power line)
-	      = MAX	 ...maximum measurement speed (0.1/frequency of power line)
-	      = DEF	 ...default measurement speed (1/frequency of power line)
-	      = MIN	 ...minimum measurement speed (10/frequency of power line)
 
     Return: None
 
@@ -330,6 +321,6 @@ Arguments:
         device.set_ref(bk2831e.FUNC_VOLT_AC, bk2831e.ACQ)
         time.sleep(1)
 
-        print(bk2831e.FUNC_VOLT_AC)
+        print(bk2831e.meas(FUNC_VOLT_AC))
 
     After every command without a return there must be a timeout so that the device can process the command.
