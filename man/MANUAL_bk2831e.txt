@@ -146,11 +146,10 @@ Contents:
 	     = FUNC_RES	 ...Resistance
 	     = FUNC_FREQ	 ...Frequency (threshold voltage)
 	     = FUNC_PER	 ...Period (threshold voltage)
-    range = AUTO	              ...automatic range (except Frequency and Period)
-	      = 0.2, 2, 20, 200, 750  ...Voltage AC
-	      = 0.2, 2, 20, 200, 1000 ...Voltage DC
-	      = 0 to 20	              ...Current AC
-	      = -20 to 20	          ...Current DC
+    range = AUTO	                ...automatic range (except Frequency and Period)
+	      = 0.2, 2, 20, 200, 750    ...Voltage AC
+	      = 0.2, 2, 20, 200, 1000   ...Voltage DC
+	      = 0.002, 0.02, 0.2, 2, 20	...Current
 	      = 0 to 20e6	          ...Resistance
 	      = 0 to 1010	          ...Frequency and Period threshold voltage range
 
