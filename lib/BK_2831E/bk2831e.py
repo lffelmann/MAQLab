@@ -57,7 +57,7 @@
         measure:
             meas(func=FUNC_CURR_AC)
             curr_ac
-        range:      (0 to 20, AUTO)
+        range:      (0.002, 0.02, 0.2, 2, 20, AUTO)
             Set:    set_range(func=FUNC_CURR_AC, range)
                     curr_ac_range = range
             Get:    get_range(func=FUNC_CURR_AC)
@@ -77,7 +77,7 @@
         measure:
             meas(func=FUNC_CURR_DC)
             curr_dc
-        range:      (-20 to 20, AUTO)
+        range:      (0.002, 0.02, 0.2, 2, 20, AUTO)
             Set:    set_range(func=FUNC_CURR_DC, range)
                     curr_dc_range = range
             Get:    get_range(func=FUNC_CURR_DC)
@@ -617,7 +617,7 @@ class BK2831E:
     def check_speed(self, speed):
         try:
             speed_ok = False
-            if speed == FAST or speed == MED or speed == SLOW or speed == DEF or speed == MIN or speed == MAX:
+            if speed == FAST or speed == MED or speed == SLOW:
                 speed_ok = True
             return speed_ok
         except:
