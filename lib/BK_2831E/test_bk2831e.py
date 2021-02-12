@@ -16,9 +16,6 @@ if __name__ == '__main__':
     cont   = bk.FUNC_CONT
 
     auto = bk.AUTO
-    maxi = bk.MAX
-    mini = bk.MIN
-    defa = bk.DEF
     acq  = bk.ACQ
     off  = bk.OFF
     on   = bk.ON
@@ -33,9 +30,9 @@ if __name__ == '__main__':
 
     state_display = [off, on]
     state_trigger = [man, bus, imm]
-    list_range = [-20, 0, 0.2, 2, 20, 200, 750, 1000, 1010, 20e6, defa, mini, maxi, auto]
-    list_ref = [-1010, -757.5, -20, 0, 1, 20, 757.5, 1010, 1.0e6, 20e6, defa, mini, maxi, off, acq]
-    list_speed = [fas, med, slo, maxi, mini, defa]
+    list_range = [-20, 0, 0.002, 0.02, 0.2, 2, 20, 200, 2e3, 20e3, 200e3, 2e6, 20e6, 750, 1000, 1010, 20e6, auto]
+    list_ref = [-1010, -757.5, -20, 0, 1, 20, 757.5, 1010, 1.0e6, 20e6, off, acq]
+    list_speed = [fas, med, slo]
 
 
     try:
@@ -72,7 +69,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -96,7 +93,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\n-------------------------------\nTRIGGER\n------------------------------\n')
     
@@ -127,7 +124,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
     
@@ -158,7 +155,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\n-------------------------------\nVOLTAGE AC\n------------------------------\n')
 
@@ -183,7 +180,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -193,7 +190,7 @@ if __name__ == '__main__':
             device.set_ref(voltac, list_ref[i])
         except Exception as e:
             print(e)
-        time.sleep(1)
+        time.sleep(2)
 
         print('get_ref(voltac): ')
         try:
@@ -206,7 +203,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -229,7 +226,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('meas(voltac): ')
@@ -243,7 +240,7 @@ if __name__ == '__main__':
         device.rst()  
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -268,7 +265,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -291,7 +288,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -314,7 +311,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('volt_ac: ')
@@ -328,7 +325,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\n-------------------------------\nVOLTAGE DC\n------------------------------\n')
 
@@ -353,7 +350,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -376,7 +373,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -399,7 +396,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('meas(voltdc): ')
@@ -413,7 +410,7 @@ if __name__ == '__main__':
         device.rst()  
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -438,7 +435,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -461,7 +458,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -484,7 +481,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('volt_dc: ')
@@ -498,7 +495,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\n-------------------------------\nCURRENT AC\n------------------------------\n')
 
@@ -523,7 +520,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -546,7 +543,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -569,7 +566,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('meas(currac): ')
@@ -580,10 +577,10 @@ if __name__ == '__main__':
         
     print('rst(): ')
     try:
-        device.rst()  
+        device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -608,7 +605,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -631,7 +628,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -654,7 +651,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('curr_ac: ')
@@ -668,8 +665,8 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
-
+    time.sleep(10)
+    
     print('\n-------------------------------\nCURRENT DC\n------------------------------\n')
 
     # range
@@ -693,7 +690,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -716,7 +713,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -739,7 +736,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('meas(currdc): ')
@@ -750,10 +747,10 @@ if __name__ == '__main__':
         
     print('rst(): ')
     try:
-        device.rst()  
+        device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -778,7 +775,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -801,7 +798,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -824,7 +821,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('curr_dc: ')
@@ -838,8 +835,8 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
-
+    time.sleep(10)
+    
     print('\n-------------------------------\nRESISTANCE\n------------------------------\n')
 
     # range
@@ -863,7 +860,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -886,7 +883,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -909,7 +906,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('meas(res): ')
@@ -920,10 +917,10 @@ if __name__ == '__main__':
         
     print('rst(): ')
     try:
-        device.rst()  
+        device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -948,7 +945,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -971,7 +968,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measurement speed
     for i in range(0, len(list_speed)):
@@ -994,7 +991,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('res: ')
@@ -1008,8 +1005,8 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
-
+    time.sleep(10)
+    
     print('\n-------------------------------\nFREQUENCY\n------------------------------\n')
 
     # range
@@ -1033,7 +1030,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -1056,7 +1053,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('meas(freq): ')
@@ -1067,10 +1064,10 @@ if __name__ == '__main__':
         
     print('rst(): ')
     try:
-        device.rst()  
+        device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -1095,7 +1092,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -1118,7 +1115,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('freq: ')
@@ -1132,8 +1129,8 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
-
+    time.sleep(10)
+    
     print('\n-------------------------------\nPERIODE\n------------------------------\n')
 
     # range
@@ -1157,7 +1154,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -1180,7 +1177,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('meas(per): ')
@@ -1191,10 +1188,10 @@ if __name__ == '__main__':
         
     print('rst(): ')
     try:
-        device.rst()  
+        device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -1219,7 +1216,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #reference
     for i in range(0, len(list_ref)):
@@ -1242,7 +1239,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     # measure
     print('per: ')
@@ -1256,7 +1253,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\n-------------------------------\nDIODE\n------------------------------\n')
 
@@ -1269,10 +1266,10 @@ if __name__ == '__main__':
         
     print('rst(): ')
     try:
-        device.rst()  
+        device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -1288,7 +1285,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\n-------------------------------\nCONTINUITY\n------------------------------\n')
 
@@ -1301,10 +1298,10 @@ if __name__ == '__main__':
         
     print('rst(): ')
     try:
-        device.rst()  
+        device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     print('\nPROPERTY\n')
 
@@ -1320,7 +1317,7 @@ if __name__ == '__main__':
         device.rst()
     except Exception as e:
         print(e)
-    time.sleep(1)
+    time.sleep(10)
 
     #close connection
     print('close()')
@@ -1328,5 +1325,3 @@ if __name__ == '__main__':
         device.close()
     except Exception as e:
         print(e)
-
-    input()

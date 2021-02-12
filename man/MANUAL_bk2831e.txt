@@ -18,15 +18,15 @@ Contents:
             2.6.3 Trigger measurement                                               118
         2.7	Range                                                                   127
             2.7.1 Set range                                                         130
-            2.7.2 Get range                                                         163
-        2.8 Reference                                                               186
-            2.8.1 Set reference                                                     189
-            2.8.2 Get reference                                                     224
-        2.9 Measurement speed                                                       247
-            2.9.1 Set measurement speed                                             250
-            2.9.2 Get measurement speed                                             275
-        2.10 Measure                                                                293
-    3 Example Program                                                               320
+            2.7.2 Get range                                                         159
+        2.8 Reference                                                               182
+            2.8.1 Set reference                                                     185
+            2.8.2 Get reference                                                     217
+        2.9 Measurement speed                                                       240
+            2.9.1 Set measurement speed                                             243
+            2.9.2 Get measurement speed                                             265
+        2.10 Measure                                                                283
+    3 Example Program                                                               310
 
 -------------------------
 1 Needed libraries
@@ -146,16 +146,12 @@ Contents:
 	     = FUNC_RES	 ...Resistance
 	     = FUNC_FREQ	 ...Frequency (threshold voltage)
 	     = FUNC_PER	 ...Period (threshold voltage)
-    range = DEF	                  ...default range (except Frequency and Period)
-	      = MIN	                  ...minimum range (except Frequency and Period)
-	      = MAX	                  ...maximum range (except Frequency and Period)
-	      = AUTO	              ...automatic range (except Frequency and Period)
-	      = 0.2, 2, 20, 200, 750  ...Voltage AC
-	      = 0.2, 2, 20, 200, 1000 ...Voltage DC
-	      = 0 to 20	              ...Current AC
-	      = -20 to 20	          ...Current DC
-	      = 0 to 20e6	          ...Resistance
-	      = 0 to 1010	          ...Frequency and Period threshold voltage range
+    range = AUTO	                           ...automatic range (except Frequency and Period)
+	      = 0.2, 2, 20, 200, 750               ...Voltage AC
+	      = 0.2, 2, 20, 200, 1000              ...Voltage DC
+	      = 0.002, 0.02, 0.2, 2, 20	           ...Current
+	      = 0 200, 2e3, 20e3, 200e3, 2e6, 20e6 ...Resistance
+	      = 0.2, 2, 20, 200, 750	           ...Frequency and Period threshold voltage range
 
     Return: None
 
@@ -206,9 +202,6 @@ Arguments:
 	     = FUNC_FREQ	...Frequency
 	     = FUNC_PER	    ...Period
     ref	= OFF	          ...no reference
-	    = DEF	          ...default reference
-	    = MIN	          ...minimum reference
-	    = MAX	          ...maximum reference
 	    = ACQ	          ...acquire input signal as reference
 	    = -757.5 to 757.5 ...Voltage AC
 	    = -1010 to 1010	  ...Voltage DC
@@ -265,9 +258,6 @@ Arguments:
     speed = FAST ...fast measurement speed (0.1/frequency of power line)
 	      = MED	 ...medium measurement speed (1/frequency of power line)
 	      = SLOW ...slow measurement speed (10/frequency of power line)
-	      = MAX	 ...maximum measurement speed (0.1/frequency of power line)
-	      = DEF	 ...default measurement speed (1/frequency of power line)
-	      = MIN	 ...minimum measurement speed (10/frequency of power line)
 
     Return: None
 
@@ -330,6 +320,6 @@ Arguments:
         device.set_ref(bk2831e.FUNC_VOLT_AC, bk2831e.ACQ)
         time.sleep(1)
 
-        print(bk2831e.FUNC_VOLT_AC)
+        print(bk2831e.meas(FUNC_VOLT_AC))
 
     After every command without a return there must be a timeout so that the device can process the command.

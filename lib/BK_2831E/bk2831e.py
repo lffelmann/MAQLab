@@ -3,11 +3,6 @@
     ID:         id()
     Reset:      rst()
 
-    DISPLAY:
-        enable/disable Display:     (ON, OFF)
-            Set:    set_display(state)  Get:    get_display()
-                    display = state             display
-
     TRIGGER:
         select Trigger:     (IMM, BUS, MAN)
             Set:    set_trg(trg)        Get:    get_trg()
@@ -15,21 +10,24 @@
         trigger measurement:
             trg()
 
+    DISPLAY:    (ON, OFF)
+        Set:    set_display(state)      Get:    get_display
+                display = state                 display
     VOLTAGE AC:
         measure:
             meas(func=FUNC_VOLT_AC)
             volt_ac
-        range:      (0.2, 2, 20, 200, 750, DEF, MIN, MAX, AUTO)
+        range:      (0.2, 2, 20, 200, 750, AUTO)
             Set:    set_range(func=FUNC_VOLT_AC, range)
                     volt_ac_range = range
             Get:    get_range(func=FUNC_VOLT_AC)
                     volt_ac_range
-        reference:  (-757.5 to 757.5, DEF, MIN, MAX, OFF, ACQ)
+        reference:  (-757.5 to 757.5, OFF, ACQ)
             Set:    set_ref(func=FUNC_VOLT_AC, ref)
                     volt_ac_ref = ref
             Get:    get_ref(func=FUNC_VOLT_AC)
                     volt_ac_ref
-        measurement speed:  (FAST, MED, SLOW, MAX, DEF, MIN)
+        measurement speed:  (FAST, MED, SLOW)
             Set:    set_meas_speed(func=FUNC_VOLT_AC, speed)
                     volt_ac_speed = speed
             Get:    get_meas_speed(func=FUNC_VOLT_AC)
@@ -39,17 +37,17 @@
         measure:
             meas(func=FUNC_VOLT_DC)
             volt_dc
-        range:      (0.2, 2, 20, 200, 1000, DEF, MIN, MAX, AUTO)
+        range:      (0.2, 2, 20, 200, 1000, AUTO)
             Set:    set_range(func=FUNC_VOLT_DC, range)
                     volt_dc_range = range
             Get:    get_range(func=FUNC_VOLT_DC)
                     volt_dc_range
-        reference:  (-1010 to 1010, DEF, MIN, MAX, OFF, ACQ)
+        reference:  (-1010 to 1010, OFF, ACQ)
             Set:    set_ref(func=FUNC_VOLT_DC, ref)
                     volt_dc_ref = ref
             Get:    get_ref(func=FUNC_VOLT_DC)
                     volt_dc_ref
-        measurement speed:  (FAST, MED, SLOW, MAX, DEF, MIN)
+        measurement speed:  (FAST, MED, SLOW)
             Set:    set_meas_speed(func=FUNC_VOLT_DC, speed)
                     volt_dc_speed = speed
             Get:    get_meas_speed(func=FUNC_VOLT_DC)
@@ -59,17 +57,17 @@
         measure:
             meas(func=FUNC_CURR_AC)
             curr_ac
-        range:      (0 to 20, DEF, MIN, MAX, AUTO)
+        range:      (0.002, 0.02, 0.2, 2, 20, AUTO)
             Set:    set_range(func=FUNC_CURR_AC, range)
                     curr_ac_range = range
             Get:    get_range(func=FUNC_CURR_AC)
                     curr_ac_range
-        reference:  (-20 to 20, DEF, MIN, MAX, OFF, ACQ)
+        reference:  (-20 to 20, OFF, ACQ)
             Set:    set_ref(func=FUNC_CURR_AC, ref)
                     curr_ac_ref = ref
             Get:    get_ref(func=FUNC_CURR_AC)
                     curr_ac_ref
-        measurement speed:  (FAST, MED, SLOW, MAX, DEF, MIN)
+        measurement speed:  (FAST, MED, SLOW)
             Set:    set_meas_speed(func=FUNC_CURR_AC, speed)
                     curr_ac_speed = speed
             Get:    get_meas_speed(func=FUNC_CURR_AC)
@@ -79,17 +77,17 @@
         measure:
             meas(func=FUNC_CURR_DC)
             curr_dc
-        range:      (-20 to 20, DEF, MIN, MAX, AUTO)
+        range:      (0.002, 0.02, 0.2, 2, 20, AUTO)
             Set:    set_range(func=FUNC_CURR_DC, range)
                     curr_dc_range = range
             Get:    get_range(func=FUNC_CURR_DC)
                     curr_dc_range
-        reference:  (0 to 20, DEF, MIN, MAX, OFF, ACQ)
+        reference:  (0 to 20, OFF, ACQ)
             Set:    set_ref(func=FUNC_CURR_DC, ref)
                     curr_dc_ref = ref
             Get:    get_ref(func=FUNC_CURR_DC)
                     curr_dc_ref
-        measurement speed:  (FAST, MED, SLOW, MAX, DEF, MIN)
+        measurement speed:  (FAST, MED, SLOW)
             Set:    set_meas_speed(func=FUNC_CURR_DC, speed)
                     curr_dc_speed = speed
             Get:    get_meas_speed(func=FUNC_CURR_DC)
@@ -99,17 +97,17 @@
         measure:
             meas(func=FUNC_RES)
             res
-        range:      (0 to 20e6, DEF, MIN, MAX, AUTO)
+        range:      (200, 2e3, 20e3, 200e3 2e6, 20e6, AUTO)
             Set:    set_range(func=FUNC_RES, range)
                     res_range = range
             Get:    get_range(func=FUNC_RES)
                     res_range
-        reference:  (0 to 20e6, DEF, MIN, MAX, OFF, ACQ)
+        reference:  (0 to 20e6, OFF, ACQ)
             Set:    set_ref(func=FUNC_RES, ref)
                     res_ref = ref
             Get:    get_ref(func=FUNC_RES)
                     res_ref
-        measurement speed:  (FAST, MED, SLOW, MAX, DEF, MIN)
+        measurement speed:  (FAST, MED, SLOW)
             Set:    set_meas_speed(func=FUNC_RES, speed)
                     res_speed = speed
             Get:    get_meas_speed(func=FUNC_RES)
@@ -119,12 +117,12 @@
         measure:
             meas(func=FUNC_FREQ)
             freq
-        threshold voltage range:    (0 to 1010)
+        threshold voltage range:    (0.2 2, 20, 200, 750)
             Set:    set_range(func=FUNC_FREQ, range)
                     freq_range = range
             Get:    get_range(func=FUNC_FREQ)
                     freq_range
-        reference:  (0 to 1.0e6, DEF, MIN, MAX, OFF, ACQ)
+        reference:  (0 to 1e6, OFF, ACQ)
             Set:    set_ref(func=FUNC_FREQ, ref)
                     freq_ref = ref
             Get:    get_ref(func=FUNC_FREQ)
@@ -134,12 +132,12 @@
         measure:
             meas(func=FUNC_PER)
             per
-        threshold voltage range:    (0 to 1010)
+        threshold voltage range:    (0.2 2, 20, 200, 750)
             Set:    set_range(func=FUNC_PER, range)
                     per_range = range
             Get:    get_range(func=FUNC_PER)
                     per_range
-        reference:  (0 to 1, DEF, MIN, MAX, OFF, ACQ)
+        reference:  (0 to 1, OFF, ACQ)
             Set:    set_ref(func=FUNC_PER, ref)
                     per_ref = ref
             Get:    get_ref(func=FUNC_PER)
@@ -159,9 +157,9 @@
 import serial
 import time
 
-TIMEOUT = 1
-DEFAULT_BAUDRATE = 9600
-BUFFER = 1024
+TIMEOUT = 1                 # serial timeout
+DEFAULT_BAUDRATE = 9600     # baudrate
+TIME_SLEEP = 1              # time between commands
 
 FUNC_VOLT_AC = 'voltac'     # array to select VOLTage:AC
 FUNC_VOLT_DC = 'voltdc'     # array to select VOLTage:DC
@@ -175,9 +173,6 @@ FUNC_CONT    = 'cont'       # array to select CONTinuity
 
 
 AUTO = 'auto'       # array to select auto in range
-MAX  = 'max'        # array to select max in range/ref/meas speed
-MIN  = 'min'        # array to select min in range/ref/meas speed
-DEF  = 'def'        # array to select default in range/ref/meas speed
 OFF  = 'off'        # array to select off in reference/display
 ACQ  = 'acq'        # array to select acquire in reference
 
@@ -220,8 +215,11 @@ class BK2831E:
             self.serial_con.flush()
 
             if receive is True:
-                data = self.serial_con.read_until('\n', BUFFER)
+                data = self.serial_con.readline()
                 data = str(data, 'utf-8')
+                start = data.find('\r') + 1
+                end = data.find('\n')
+                data = data[start:end]
                 return data
         except:
             raise Exception('Error: Writing and/or reading data')
@@ -275,13 +273,13 @@ class BK2831E:
             msg = bytearray(':TRIG:SOUR?\r\n', 'utf-8')                       # get selected trigger
             data = self.send_msg(msg, True)
 
-            if data == 'IMMediate':                                           # if trigger is immediate -> return immediate
+            if data == 'IMM':                                                 # if trigger is immediate -> return immediate
                 self.trg_selected = IMM
                 return IMM
             elif data == 'BUS':                                               # if trigger is bus -> return bus
                 self.trg_selected = BUS
                 return BUS
-            elif data == 'MANual':                                            # if trigger is manual -> return manual
+            elif data == 'MAN':                                               # if trigger is manual -> return manual
                 self.trg_selected = MAN
                 return MAN
 
@@ -305,15 +303,26 @@ class BK2831E:
     # get state of display
     def get_display(self):
         try:
-            msg = bytearray(':DISP:ENAB?\r\n', 'utf-8')                       # get state of display
+            msg = bytearray(':DISP:ENABle?\r\n', 'utf-8')                       # get state of display
             data = self.send_msg(msg, True)
 
-            if data == 'ON' or data == '1':                                   # if display is on -> return on
+            if data == '1':                                   # if display is on -> return on
                 return ON
-            elif data == 'OFF' or data == '0':                                # if display is off -> return off
+            elif data == '0':                                 # if display is off -> return off
                 return OFF
         except:
             raise Exception('Error: Could not get state of display')
+
+    '''SET FUNC'''
+    def set_func(self, func):
+        try:
+            array_func = self.convert_func('meas', func)    # convert func to array for msg
+
+            msg = bytearray(':FUNC ' + array_func + '\r\n', 'utf-8')    # set to certain func
+            self.send_msg(msg, False)
+            time.sleep(TIME_SLEEP)
+        except:
+            raise Exception('Error: Could not set function')
 
     '''MEASUREMENT SPEED'''
     # set measurement speed
@@ -323,6 +332,9 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
             if self.check_speed(speed) is False:                              # check if speed is available
                 raise Exception('Error: Speed is unavailable')
+
+            self.set_func(func)                                               # set func
+            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('speed', func)                     # convert func to array for msg
 
@@ -338,6 +350,9 @@ class BK2831E:
         try:
             if self.check_func('speed', func) is False:                       # check if func is available
                 raise Exception('Error: Function is unavailable')
+
+            self.set_func(func)                                               # set func
+            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('speed', func)                     # convert func to array for msg
 
@@ -362,6 +377,9 @@ class BK2831E:
             if self.check_range(func, range) is False:                        # check if range is available
                 raise Exception('Error: Range is unavailable')
 
+            self.set_func(func)                                               # set func
+            time.sleep(TIME_SLEEP)
+
             array_func = self.convert_func('range', func)                     # convert func to array for msg
 
             if range == AUTO:                                                 # if range is auto -> enable auto
@@ -370,10 +388,10 @@ class BK2831E:
             elif func != FUNC_FREQ and func != FUNC_PER:                      # if range can be set on auto -> disable range auto
                 msg = bytearray(array_func + ':RANG:AUTO OFF\r\n', 'utf-8')
                 self.send_msg(msg, False)
-                time.sleep(1)
+                time.sleep(TIME_SLEEP)
 
             if range != AUTO:                                                 # if range is not auto -> set range
-                array_range = self.convert_range_ref(range)                   # convert range to array for msg
+                array_range = self.convert_range(range)                   # convert range to array for msg
                 msg = bytearray(array_func + ':RANG ' + array_range + '\r\n', 'utf-8')
                 self.send_msg(msg, False)
         except:
@@ -385,15 +403,19 @@ class BK2831E:
             if self.check_func('range', func) is False:                       # check if func is available
                 raise Exception('Error: Function is unavailable')
 
-            array_func = self.convert_func('range', func)                     # convert func to array for msg
+            self.set_func(func)                                               # set func
+            time.sleep(TIME_SLEEP)
 
+            array_func = self.convert_func('range', func)                     # convert func to array for msg
+            data = None
             if func != FUNC_FREQ and func != FUNC_PER:                        # if range can be set on auto -> check if range is auto
                 msg = bytearray(array_func + ':RANG:AUTO?\r\n', 'utf-8')
                 data = self.send_msg(msg, True)
 
-            if data == 'ON':                                                  # if range is auto -> return range is auto
+
+            if data == '1':                                                  # if range is auto -> return range is auto
                 return AUTO
-            elif data == 'OFF' or func == FUNC_FREQ or func == FUNC_PER:      # if range is not auto or range cant be set on auto -> get range and return range
+            elif data == '0' or func == FUNC_FREQ or func == FUNC_PER:       # if range is not auto or range cant be set on auto -> get range and return range
                 msg = bytearray(array_func + ':RANG?\r\n', 'utf-8')
                 data = self.send_msg(msg, True)
                 return float(data)
@@ -409,6 +431,9 @@ class BK2831E:
             if self.check_ref(func, ref) is False:                            # check if ref is available
                 raise Exception('Error: Reference is unavailable')
 
+            self.set_func(func)                                               # set func
+            time.sleep(TIME_SLEEP)
+
             array_func = self.convert_func('ref', func)                       # convert func to array for msg
 
             if ref == OFF:                                                    # if ref is OFF -> turn ref OFF
@@ -417,12 +442,12 @@ class BK2831E:
             else:                                                             # if ref is not OFF -> turn ref ON
                 msg = bytearray(array_func + ':REF:STAT ON\r\n', 'utf-8')
                 self.send_msg(msg, False)
-                time.sleep(1)
+                time.sleep(TIME_SLEEP)
                 if ref == ACQ:                                                # if ref is ACQ -> set ref ACQ
                     msg = bytearray(array_func + ':REF:ACQ\r\n', 'utf-8')
                     self.send_msg(msg, False)
                 else:                                                         # if ref is ON and not ACQ -> set ref
-                    array_ref = self.convert_range_ref(ref)                   # convert ref to array for msg
+                    array_ref = self.convert_ref(ref)                   # convert ref to array for msg
                     msg = bytearray(array_func + ':REF ' + array_ref + '\r\n', 'utf-8')
                     self.send_msg(msg, False)
 
@@ -435,14 +460,17 @@ class BK2831E:
             if self.check_func('ref', func) is False:                         # check if func is available
                 raise Exception('Error: Function is unavailable')
 
+            self.set_func(func)                                               # set func
+            time.sleep(TIME_SLEEP)
+
             array_func = self.convert_func('ref', func)                       # convert func to array for msg
 
             msg = bytearray(array_func + ':REF:STAT?\r\n', 'utf-8')           # ask if reference is ON
             data = self.send_msg(msg, True)
 
-            if data == 'OFF':                                                 # if reference is OFF -> return reference is OFF
+            if data == '0':                                                 # if reference is OFF -> return reference is OFF
                 return OFF
-            elif data == 'ON':                                                # if reference is ON -> get reference and return reference
+            elif data == '1':                                                # if reference is ON -> get reference and return reference
                 msg = bytearray(array_func + ':REF?\r\n', 'utf-8')
                 data = self.send_msg(msg, True)
                 return float(data)
@@ -455,11 +483,8 @@ class BK2831E:
             if self.check_func('meas', func) is False:                        # check if func is available
                 raise Exception('Error: Function is unavailable')
 
-            array_func = self.convert_func('meas', func)                      # convert func to array for msg
-
-            msg = bytearray(':FUNC ' + array_func + '\r\n', 'utf-8')          # set measurement to certain func
-            self.send_msg(msg, False)
-            time.sleep(1)
+            self.set_func(func)                                               # set func
+            time.sleep(TIME_SLEEP)
 
             msg = bytearray('FETC?\r\n', 'utf-8')                             # get measurement and return measurement
             data = self.send_msg(msg, True)
@@ -495,35 +520,39 @@ class BK2831E:
             range_ok = False
             list_range_volt_ac = [0.2, 2, 20, 200, 750]
             list_range_volt_dc = [0.2, 2, 20, 200, 1000]
+            list_range_curr = [0.002, 0.02, 0.2, 2, 20]
+            list_range_res = [200, 2e3, 20e3, 200e3, 2e6, 20e6]
+            list_range_freq_per = [0.2, 2, 20, 200, 750]
 
-            if func == FUNC_FREQ or func == FUNC_PER:
-                range_check = float(range_check)
-                if 0 <= range_check <= 1010:
-                    range_ok = True
+            if range_check == AUTO and func != FUNC_FREQ and func != FUNC_PER:
+                range_ok = True
             else:
-                if range_check == AUTO or range_check== MAX or range_check == MIN or range_check == DEF:
-                    range_ok = True
-                else:
-                    range_check = float(range_check)
-                    if func == FUNC_VOLT_AC:
-                        for i in range(0, len(list_range_volt_ac)):
-                            if range_check == list_range_volt_ac[i]:
-                                range_ok = True
-                                break
-                    elif func == FUNC_VOLT_DC:
-                        for i in range(0, len(list_range_volt_dc)):
-                            if range_check == list_range_volt_dc[i]:
-                                range_ok = True
-                                break
-                    elif func == FUNC_CURR_AC:
-                        if 0 <= range_check <= 20:
+                range_check = float(range_check)
+                if func == FUNC_FREQ or func == FUNC_PER:
+                    for i in range(0, len(list_range_freq_per)):
+                        if range_check == list_range_freq_per[i]:
                             range_ok = True
-                    elif func == FUNC_CURR_DC:
-                        if -20 <= range_check <= 20:
+                            break
+                elif func == FUNC_VOLT_AC:
+                    for i in range(0, len(list_range_volt_ac)):
+                        if range_check == list_range_volt_ac[i]:
                             range_ok = True
-                    elif func == FUNC_RES:
-                        if 0 <= range_check <= 20e6:
+                            break
+                elif func == FUNC_VOLT_DC:
+                    for i in range(0, len(list_range_volt_dc)):
+                        if range_check == list_range_volt_dc[i]:
                             range_ok = True
+                            break
+                elif func == FUNC_CURR_AC or func == FUNC_CURR_DC:
+                    for i in range(0, len(list_range_curr)):
+                        if range_check == list_range_curr[i]:
+                            range_ok = True
+                            break
+                elif func == FUNC_RES:
+                    for i in range(0, len(list_range_res)):
+                        if range_check == list_range_res[i]:
+                            range_ok = True
+                            break
             return range_ok
         except:
             return False
@@ -532,7 +561,7 @@ class BK2831E:
     def check_ref(self, func, ref_check):
         try:
             ref_ok = False
-            if ref_check == MIN or ref_check == MAX or ref_check == DEF or ref_check == OFF or ref_check == ACQ:
+            if ref_check == OFF or ref_check == ACQ:
                 ref_ok = True
             else:
                 ref_check = float(ref_check)
@@ -588,7 +617,7 @@ class BK2831E:
     def check_speed(self, speed):
         try:
             speed_ok = False
-            if speed == FAST or speed == MED or speed == SLOW or speed == DEF or speed == MIN or speed == MAX:
+            if speed == FAST or speed == MED or speed == SLOW:
                 speed_ok = True
             return speed_ok
         except:
@@ -647,20 +676,27 @@ class BK2831E:
             raise Exception('Error: Could not convert func')
 
     # convert range/ref to array
-    def convert_range_ref(self, range_ref):
+    def convert_range(self, rang):
         try:
-            if range_ref == MIN:
-                array_range_ref = 'MIN'
-            elif range_ref == MAX:
-                array_range_ref = 'MAX'
-            elif range_ref == DEF:
-                array_range_ref = 'DEF'
+            if rang < 1:
+                rang = float(rang)
             else:
-                array_range_ref = str(range_ref)
+                rang = int(rang)
+            array_rang = str(rang)
 
-            return array_range_ref
+            return array_rang
         except:
-            raise Exception('Error: Could not convert range/ref')
+            raise Exception('Error: Could not convert range')
+
+    # convert ref to array
+    def convert_ref(self, ref):
+        try:
+            ref = float(ref)
+            array_ref = str(ref)
+
+            return array_ref
+        except:
+            raise Exception('Error: Could not convert ref')
 
     # convert trg to array
     def convert_trg(self, trg):
@@ -690,12 +726,12 @@ class BK2831E:
     # convert speed to array
     def convert_speed(self, speed):
         try:
-            if speed == FAST or speed == MAX:
-                array_speed = 'MAX'
-            elif speed == MED or speed == DEF:
-                array_speed = 'DEF'
-            elif speed == SLOW or speed == MIN:
-                array_speed = 'MIN'
+            if speed == FAST:
+                array_speed = '0.1'
+            elif speed == MED:
+                array_speed = '1'
+            elif speed == SLOW:
+                array_speed = '10'
             return array_speed
         except:
             raise Exception('Error: Could not convert speed')
