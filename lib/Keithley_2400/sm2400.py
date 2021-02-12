@@ -60,7 +60,7 @@ class SM2400:
             data = self.send_msg(msg, True)
             return data
         except:
-            raise Exception('Error: Could not get ID')
+            raise
 
     '''RESET DEVICE'''
     def rst(self):
@@ -68,7 +68,7 @@ class SM2400:
             msg = bytearray('*RST\r\n', 'utf-8')
             self.send_msg(msg, False)
         except:
-            raise Exception('Error: Could not reset device')
+            raise
 
     '''DISPLAY'''
     # enable/disable display
@@ -82,7 +82,7 @@ class SM2400:
             msg = bytearray(':DISP:ENAB ' + array_state + '\r\n', 'utf-8')          # set display
             self.send_msg(msg, False)
         except:
-            raise Exception('Error: Could not set display')
+            raise
 
     # get state of display
     def get_display(self):
@@ -95,7 +95,7 @@ class SM2400:
             elif data == '0':                                                       # if display is off -> return off
                 return OFF
         except:
-            raise Exception('Error: Could not get state of display')
+            raise
 
     # -----------------------------------------------------------------------
     # CHECK/CONVERT
