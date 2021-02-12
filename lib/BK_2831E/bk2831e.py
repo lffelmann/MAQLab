@@ -224,6 +224,17 @@ class BK2831E:
         except:
             raise Exception('Error: Writing and/or reading data')
 
+    '''SET FUNC'''
+    def set_func(self, func):
+        try:
+            array_func = self.convert_func('meas', func)  # convert func to array for msg
+
+            msg = bytearray(':FUNC ' + array_func + '\r\n', 'utf-8')  # set to certain func
+            self.send_msg(msg, False)
+            time.sleep(TIME_SLEEP)
+        except:
+            raise Exception('Error: Could not set function')
+
     '''ID OF DEVICE'''
     def id(self):
         try:
@@ -231,7 +242,7 @@ class BK2831E:
             data = self.send_msg(msg, True)
             return data
         except:
-            raise Exception('Error: Could not get ID')
+            raise
 
     '''RESET DEVICE'''
     def rst(self):
@@ -240,7 +251,7 @@ class BK2831E:
             self.send_msg(msg, False)
             self.trg_selected = IMM
         except:
-            raise Exception('Error: Could not reset device')
+            raise
 
     '''TRIGGER MEASUREMENT'''
     def trg(self):
@@ -250,7 +261,7 @@ class BK2831E:
             msg = bytearray('*TRG\r\n', 'utf-8')
             self.send_msg(msg, False)
         except:
-            raise Exception('Error: Could not trigger measurement')
+            raise
 
     '''SELECT TRIGGER'''
     # set selected trigger
@@ -265,7 +276,7 @@ class BK2831E:
             self.send_msg(msg, False)
             self.trg_selected = trg
         except:
-            raise Exception('Error: Could not select trigger')
+            raise
 
     # get selected trigger
     def get_trg(self):
@@ -282,9 +293,8 @@ class BK2831E:
             elif data == 'MAN':                                               # if trigger is manual -> return manual
                 self.trg_selected = MAN
                 return MAN
-
         except:
-            raise Exception('Error: Could not get selected trigger')
+            raise
 
     '''DISPLAY'''
     # enable/disable display
@@ -298,7 +308,7 @@ class BK2831E:
             msg = bytearray(':DISP:ENAB ' + array_state + '\r\n', 'utf-8')    # set display
             self.send_msg(msg, False)
         except:
-            raise Exception('Error: Could not set display')
+            raise
 
     # get state of display
     def get_display(self):
@@ -306,23 +316,12 @@ class BK2831E:
             msg = bytearray(':DISP:ENABle?\r\n', 'utf-8')                       # get state of display
             data = self.send_msg(msg, True)
 
-            if data == '1':                                   # if display is on -> return on
+            if data == '1':                                                     # if display is on -> return on
                 return ON
-            elif data == '0':                                 # if display is off -> return off
+            elif data == '0':                                                   # if display is off -> return off
                 return OFF
         except:
-            raise Exception('Error: Could not get state of display')
-
-    '''SET FUNC'''
-    def set_func(self, func):
-        try:
-            array_func = self.convert_func('meas', func)    # convert func to array for msg
-
-            msg = bytearray(':FUNC ' + array_func + '\r\n', 'utf-8')    # set to certain func
-            self.send_msg(msg, False)
-            time.sleep(TIME_SLEEP)
-        except:
-            raise Exception('Error: Could not set function')
+            raise
 
     '''MEASUREMENT SPEED'''
     # set measurement speed
@@ -343,7 +342,7 @@ class BK2831E:
             msg = bytearray(array_func + ':NPLC ' + array_speed + '\r\n', 'utf-8')  # set measurement speed
             self.send_msg(msg, False)
         except:
-            raise Exception('Error: Could not set measurement speed')
+            raise
 
     # get measurement speed
     def get_meas_speed(self, func):
@@ -366,7 +365,7 @@ class BK2831E:
             elif data == '10':                                                # if meas speed is slow -> return slow
                 return SLOW
         except:
-            raise Exception('Error: Could not get measurement speed')
+            raise
 
     '''RANGE'''
     # set range
@@ -395,7 +394,7 @@ class BK2831E:
                 msg = bytearray(array_func + ':RANG ' + array_range + '\r\n', 'utf-8')
                 self.send_msg(msg, False)
         except:
-            raise Exception('Error: Could not set range')
+            raise
 
     # get range
     def get_range(self, func):
@@ -420,7 +419,7 @@ class BK2831E:
                 data = self.send_msg(msg, True)
                 return float(data)
         except:
-            raise Exception('Error: Could not get range')
+            raise
 
     '''REFERENCE'''
     # set reference
@@ -452,7 +451,7 @@ class BK2831E:
                     self.send_msg(msg, False)
 
         except:
-            raise Exception('Error: Could not set reference')
+            raise
 
     # get reference
     def get_ref(self, func):
@@ -475,7 +474,7 @@ class BK2831E:
                 data = self.send_msg(msg, True)
                 return float(data)
         except:
-            raise Exception('Error: Could not get reference')
+            raise
 
     '''GET MEASUREMENT'''
     def meas(self, func):
@@ -490,7 +489,7 @@ class BK2831E:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get measurement')
+            raise
 
     # -----------------------------------------------------------------------
     # CHECK/CONVERT
