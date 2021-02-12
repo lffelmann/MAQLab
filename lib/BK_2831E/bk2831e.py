@@ -97,7 +97,7 @@
         measure:
             meas(func=FUNC_RES)
             res
-        range:      (0 to 20e6, AUTO)
+        range:      (200, 2e3, 20e3, 200e3 2e6, 20e6, AUTO)
             Set:    set_range(func=FUNC_RES, range)
                     res_range = range
             Get:    get_range(func=FUNC_RES)
@@ -117,12 +117,12 @@
         measure:
             meas(func=FUNC_FREQ)
             freq
-        threshold voltage range:    (0 to 1010)
+        threshold voltage range:    (0.2 2, 20, 200, 750)
             Set:    set_range(func=FUNC_FREQ, range)
                     freq_range = range
             Get:    get_range(func=FUNC_FREQ)
                     freq_range
-        reference:  (0 to 1.0e6, OFF, ACQ)
+        reference:  (0 to 1e6, OFF, ACQ)
             Set:    set_ref(func=FUNC_FREQ, ref)
                     freq_ref = ref
             Get:    get_ref(func=FUNC_FREQ)
@@ -132,7 +132,7 @@
         measure:
             meas(func=FUNC_PER)
             per
-        threshold voltage range:    (0 to 1010)
+        threshold voltage range:    (0.2 2, 20, 200, 750)
             Set:    set_range(func=FUNC_PER, range)
                     per_range = range
             Get:    get_range(func=FUNC_PER)
@@ -157,9 +157,9 @@
 import serial
 import time
 
-TIMEOUT = 1
-DEFAULT_BAUDRATE = 9600
-BUFFER = 1024
+TIMEOUT = 1                 # serial timeout
+DEFAULT_BAUDRATE = 9600     # baudrate
+TIME_SLEEP = 1              # time between commands
 
 FUNC_VOLT_AC = 'voltac'     # array to select VOLTage:AC
 FUNC_VOLT_DC = 'voltdc'     # array to select VOLTage:DC
@@ -320,7 +320,7 @@ class BK2831E:
 
             msg = bytearray(':FUNC ' + array_func + '\r\n', 'utf-8')    # set to certain func
             self.send_msg(msg, False)
-            time.sleep(1)
+            time.sleep(TIME_SLEEP)
         except:
             raise Exception('Error: Could not set function')
 
@@ -334,7 +334,7 @@ class BK2831E:
                 raise Exception('Error: Speed is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(1)
+            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('speed', func)                     # convert func to array for msg
 
@@ -352,7 +352,7 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(1)
+            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('speed', func)                     # convert func to array for msg
 
@@ -378,7 +378,7 @@ class BK2831E:
                 raise Exception('Error: Range is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(1)
+            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('range', func)                     # convert func to array for msg
 
@@ -388,11 +388,11 @@ class BK2831E:
             elif func != FUNC_FREQ and func != FUNC_PER:                      # if range can be set on auto -> disable range auto
                 msg = bytearray(array_func + ':RANG:AUTO OFF\r\n', 'utf-8')
                 self.send_msg(msg, False)
-                time.sleep(1)
+                time.sleep(TIME_SLEEP)
 
             if range != AUTO:                                                 # if range is not auto -> set range
-                array_range = self.convert_range(func, range)                   # convert range to array for msg
-                msg = bytearray(array_func + ':RANG:UPP ' + array_range + '\r\n', 'utf-8')
+                array_range = self.convert_range(range)                   # convert range to array for msg
+                msg = bytearray(array_func + ':RANG ' + array_range + '\r\n', 'utf-8')
                 self.send_msg(msg, False)
         except:
             raise Exception('Error: Could not set range')
@@ -404,7 +404,7 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(1)
+            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('range', func)                     # convert func to array for msg
             data = None
@@ -432,7 +432,7 @@ class BK2831E:
                 raise Exception('Error: Reference is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(1)
+            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('ref', func)                       # convert func to array for msg
 
@@ -442,7 +442,7 @@ class BK2831E:
             else:                                                             # if ref is not OFF -> turn ref ON
                 msg = bytearray(array_func + ':REF:STAT ON\r\n', 'utf-8')
                 self.send_msg(msg, False)
-                time.sleep(1)
+                time.sleep(TIME_SLEEP)
                 if ref == ACQ:                                                # if ref is ACQ -> set ref ACQ
                     msg = bytearray(array_func + ':REF:ACQ\r\n', 'utf-8')
                     self.send_msg(msg, False)
@@ -461,7 +461,7 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(1)
+            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('ref', func)                       # convert func to array for msg
 
@@ -484,7 +484,7 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(1)
+            time.sleep(TIME_SLEEP)
 
             msg = bytearray('FETC?\r\n', 'utf-8')                             # get measurement and return measurement
             data = self.send_msg(msg, True)
@@ -524,7 +524,7 @@ class BK2831E:
             list_range_res = [200, 2e3, 20e3, 200e3, 2e6, 20e6]
             list_range_freq_per = [0.2, 2, 20, 200, 750]
 
-            if range_check == AUTO:
+            if range_check == AUTO and func != FUNC_FREQ and func != FUNC_PER:
                 range_ok = True
             else:
                 range_check = float(range_check)
@@ -676,12 +676,12 @@ class BK2831E:
             raise Exception('Error: Could not convert func')
 
     # convert range/ref to array
-    def convert_range(self, func, rang):
+    def convert_range(self, rang):
         try:
-            if func == FUNC_RES:
-                rang = int(rang)
-            else:
+            if rang < 1:
                 rang = float(rang)
+            else:
+                rang = int(rang)
             array_rang = str(rang)
 
             return array_rang
