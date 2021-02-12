@@ -169,9 +169,10 @@ class NORMA4000:
     # initial NORMA4000, establish connection
     def __init__(self, ip_add, port=DEFAULT_PORT):
         try:
-            self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.tcp_con.settimeout(10)
-            self.tcp_con.connect((ip_add, port))
+            pass
+            #self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            #self.tcp_con.settimeout(10)
+            #self.tcp_con.connect((ip_add, port))
         except:
             raise Exception("Error: Could not connect")
 
@@ -200,7 +201,7 @@ class NORMA4000:
             data = self.send_msg(msg, True)
             return data
         except:
-            raise Exception('Error: Could not get ID')
+            raise
 
     '''RESET DEVICE'''
     def rst(self):
@@ -210,7 +211,7 @@ class NORMA4000:
             self.watt_methode = 0
             self.cont_measurement = False
         except:
-            raise Exception('Error: Could not reset device')
+            raise
 
     '''SET MEASUREMENT METHOD ON CONTINUOUS'''
     def cont_meas(self):
@@ -220,7 +221,7 @@ class NORMA4000:
             self.cont_measurement = True
         except:
             self.cont_measurement = False
-            raise Exception('Error: Could not set measurement methode on continuous')
+            raise
 
     '''SET WATTMETER METHOD'''
     def watt_meth(self, methode):
@@ -239,7 +240,7 @@ class NORMA4000:
             self.send_msg(msg, False)
         except:
             self.watt_methode = 0
-            raise Exception('Error: Could not set wattmeter method')
+            raise
 
     # ---------------------------------------------------------
     # MEASUREMENT
@@ -269,7 +270,7 @@ class NORMA4000:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get voltage')
+            raise
 
     '''CURRENT'''
     def curr(self, func, phase):
@@ -293,7 +294,7 @@ class NORMA4000:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get current')
+            raise
 
     '''POWER'''
     def pwr(self, func, phase):
@@ -317,7 +318,7 @@ class NORMA4000:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get power')
+            raise
 
     '''PHASE'''
     def phas(self, func, phase):
@@ -339,7 +340,7 @@ class NORMA4000:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get phase')
+            raise
 
     '''IMPEDANCE'''
     def imp(self, func, phase):
@@ -361,7 +362,7 @@ class NORMA4000:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get impedance')
+            raise
 
     '''RESISTANCE'''
     def res(self, func, phase):
@@ -383,7 +384,7 @@ class NORMA4000:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get resistance')
+            raise
 
     '''REACTANCE'''
     def react(self, func, phase):
@@ -405,7 +406,7 @@ class NORMA4000:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get reactance')
+            raise
 
     # ---------------------------------------------------------
     # CHECK + CONVERT
