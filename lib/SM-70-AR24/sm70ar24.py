@@ -92,7 +92,7 @@ class SM70AR24:
             data = self.send_msg(msg, True)
             return data
         except:
-            raise Exception('Error: Could not get ID')
+            raise
 
     '''RESET DEVICE'''
     def rst(self):
@@ -102,7 +102,7 @@ class SM70AR24:
             self.value_max_volt = MAX_VOLT
             self.value_max_curr = MAX_CURR
         except:
-            raise Exception('Error: Could not reset device')
+            raise
 
     '''MAX VALUE'''
     # set max output value of voltage and current
@@ -124,7 +124,7 @@ class SM70AR24:
             elif func == FUNC_CURR:                                                 # if func is curr -> value in variable max curr
                 self.value_max_curr = value
         except:
-            raise Exception('Error: Could not set max output value')
+            raise
 
     # get set max output voltage and current
     def get_max_out(self, func):
@@ -144,7 +144,7 @@ class SM70AR24:
 
             return float(data)
         except:
-            raise Exception('Error: Could not get max output value')
+            raise
 
     '''SOURCE'''
     # set output voltage and current
@@ -161,7 +161,7 @@ class SM70AR24:
             msg = bytearray('SOUR:' + array_func + ' ' + array_value + '\r\n', 'utf-8')     # set output value
             self.send_msg(msg, False)
         except:
-            raise Exception('Error: Could not set output value')
+            raise
 
     # get set output voltage and current
     def get_out(self, func):
@@ -175,7 +175,7 @@ class SM70AR24:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get output value')
+            raise
 
     '''MEASURE'''
     # measure voltage, current and power
@@ -190,7 +190,7 @@ class SM70AR24:
             data = self.send_msg(msg, True)
             return float(data)
         except:
-            raise Exception('Error: Could not get measurement')
+            raise
 
     # ------------------------------------------------------
     # CHECK + CONVERT
