@@ -14,7 +14,7 @@ import serial
 import time
 
 TIMEOUT = 1
-aDEFAULT_BAUDRATE = 9600
+DEFAULT_BAUDRATE = 9600
 
 ON = 'on'
 OFF = 'off'
