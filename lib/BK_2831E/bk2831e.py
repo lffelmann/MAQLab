@@ -391,7 +391,7 @@ class BK2831E:
                 time.sleep(1)
 
             if range != AUTO:                                                 # if range is not auto -> set range
-                array_range = self.convert_range_ref(range)                   # convert range to array for msg
+                array_range = self.convert_range(func, range)                   # convert range to array for msg
                 msg = bytearray(array_func + ':RANG:UPP ' + array_range + '\r\n', 'utf-8')
                 self.send_msg(msg, False)
         except:
@@ -447,7 +447,7 @@ class BK2831E:
                     msg = bytearray(array_func + ':REF:ACQ\r\n', 'utf-8')
                     self.send_msg(msg, False)
                 else:                                                         # if ref is ON and not ACQ -> set ref
-                    array_ref = self.convert_range_ref(ref)                   # convert ref to array for msg
+                    array_ref = self.convert_ref(ref)                   # convert ref to array for msg
                     msg = bytearray(array_func + ':REF ' + array_ref + '\r\n', 'utf-8')
                     self.send_msg(msg, False)
 
@@ -676,13 +676,27 @@ class BK2831E:
             raise Exception('Error: Could not convert func')
 
     # convert range/ref to array
-    def convert_range_ref(self, range_ref):
+    def convert_range(self, func, rang):
         try:
-            array_range_ref = str(range_ref)
+            if func == FUNC_RES:
+                rang = int(rang)
+            else:
+                rang = float(rang)
+            array_rang = str(rang)
 
-            return array_range_ref
+            return array_rang
         except:
-            raise Exception('Error: Could not convert range/ref')
+            raise Exception('Error: Could not convert range')
+
+    # convert ref to array
+    def convert_ref(self, ref):
+        try:
+            ref = float(ref)
+            array_ref = str(ref)
+
+            return array_ref
+        except:
+            raise Exception('Error: Could not convert ref')
 
     # convert trg to array
     def convert_trg(self, trg):
@@ -1097,9 +1111,3 @@ class BK2831E:
 
     # continuity
     cont = property(_meas_cont)
-    
-if __name__ == '__main__':
-    device = BK2831E('COM3')
-    device.set_range(FUNC_CURR_AC, 0.02)
-    time.sleep(3)
-    print(device.get_range(FUNC_CURR_AC))
