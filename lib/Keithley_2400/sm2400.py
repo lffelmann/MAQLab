@@ -14,8 +14,7 @@ import serial
 import time
 
 TIMEOUT = 1
-BUFFER = 1024
-DEFAULT_BAUDRATE = 9600
+aDEFAULT_BAUDRATE = 9600
 
 ON = 'on'
 OFF = 'off'
@@ -48,9 +47,9 @@ class SM2400:
             self.serial_con.flush()
 
             if receive is True:
-                data = self.serial_con.read_until('\n', BUFFER)
+                data = self.serial_con.readline()
                 data = str(data, 'utf-8')
-                return data
+                return data.rstrip()
         except:
             raise Exception('Error: Writing and/or reading data')
 
@@ -91,9 +90,9 @@ class SM2400:
             msg = bytearray(':DISP:ENAB?\r\n', 'utf-8')                             # get state of display
             data = self.send_msg(msg, True)
 
-            if data == 'ON' or data == '1':                                         # if display is on -> return on
+            if data == '1':                                                         # if display is on -> return on
                 return ON
-            elif data == 'OFF' or data == '0':                                      # if display is off -> return off
+            elif data == '0':                                                       # if display is off -> return off
                 return OFF
         except:
             raise Exception('Error: Could not get state of display')
