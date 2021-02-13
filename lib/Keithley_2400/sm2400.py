@@ -105,8 +105,8 @@ class SM2400:
             raise
 
     '''OUTPUT'''
-    # set output
-    def set_out(self, state):
+    # set enable/disable output
+    def set_ena_out(self, state):
         try:
             if self.check_state(state) is False:                                    # check if state is available
                 raise Exception('Error: State is unavailable')
@@ -118,8 +118,8 @@ class SM2400:
         except:
             raise
 
-    # get output
-    def get_out(self):
+    # get enable/disable output
+    def get_ena_out(self):
         try:
             msg = bytearray(':OUTP?\r\n', 'utf-8')                                  # get output
             data = self.send_msg(msg, True)
@@ -229,15 +229,15 @@ class SM2400:
             raise
 
     # output
-    def _get_out(self):
+    def _get_ena_out(self):
         try:
-            return self.get_out()
+            return self.get_ena_out()
         except:
             raise
 
-    def _set_out(self, state):
+    def _set_ena_out(self, state):
         try:
-            self.set_out(state)
+            self.set_ena_out(state)
         except:
             raise
 
@@ -259,7 +259,7 @@ class SM2400:
     display = property(_get_display, _set_display)
 
     # output
-    output = property(_get_out, _set_out)
+    output = property(_get_ena_out, _set_ena_out)
 
     # source mode
     sour_mode = property(_get_sour_mode, _set_sour_mode)
