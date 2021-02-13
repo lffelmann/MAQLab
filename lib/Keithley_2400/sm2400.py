@@ -8,6 +8,11 @@
             Set:    set_display(state)  Get:    get_display()
                     display = state             display
 
+    OUTPUT:
+        enable/disable output:      (ON, OFF)
+            Set:    set_out(state)  Get:    get_out()
+                    output = state          output
+
 """
 
 import serial
