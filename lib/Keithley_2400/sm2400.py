@@ -3,15 +3,31 @@
     ID:         id()
     Reset:      rst()
 
-    DISPLAY:
-        enable/disable Display:     (ON, OFF)
-            Set:    set_display(state)  Get:    get_display()
-                    display = state             display
+    DISPLAY:    (ON, OFF)
+        Set:    set_display(state)  Get:    get_display()
+                display = state             display
 
-    OUTPUT:
-        enable/disable output:      (ON, OFF)
-            Set:    set_out(state)  Get:    get_out()
-                    output = state          output
+    OUTPUT:     (ON, OFF)
+        Set:    set_ena_out(state)  Get:    get_ena_out()
+                output = state              output
+
+    SOURCE MODE:    (VOLT, CURR)
+        Set:    set_sour_mode(func) Get:    get_sour_mode()
+                sour_mode = func            sour_mode
+
+    VOLTAGE:
+        max output:     (-210 to 210)
+            Set:    set_max_out(FUNC_VOLT, value)
+                    volt_max_out = value
+            Get:    get_max_out(FUNC_VOLT, value)
+                    volt_max_out
+
+    CURRENT:
+        max output:     (-1.05 to 1.05)
+            Set:    set_max_out(FUNC_CURR, value)
+                    curr_max_out = value
+            Get:    get_max_out(FUNC_CURR, value)
+                    curr_max_out
 
 """
 
@@ -20,12 +36,14 @@ import time
 
 TIMEOUT = 1
 DEFAULT_BAUDRATE = 9600
+TIME_SLEEP = 1
 
 ON = 'on'
 OFF = 'off'
+AUTO = 'auto'
 
-VOLT = 'volt'
-CURR = 'curr'
+FUNC_VOLT = 'volt'
+FUNC_CURR = 'curr'
 
 class SM2400:
 
@@ -137,14 +155,14 @@ class SM2400:
 
     '''SOURCE MODE'''
     # set source mode
-    def set_sour_mode(self, mode):
+    def set_sour_mode(self, func):
         try:
-            if self.check_sour_mode(mode) is False:                             # check if source mode is available
-                raise Exception('Error: Mode is unavailable')
+            if self.check_func(func) is False:                                  # check if func is available
+                raise Exception('Error: Func is unavailable')
 
-            array_mode = self.convert_sour_mode(mode)                           # convert mode to array for msg
+            array_func = self.convert_func(func)                                # convert func to array for msg
 
-            msg = bytearray(':SOUR:FUNC ' + array_mode + '\r\n', 'utf-8')       # set source mode
+            msg = bytearray(':SOUR:FUNC ' + array_func + '\r\n', 'utf-8')       # set source mode
             self.send_msg(msg, False)
         except:
             raise
@@ -156,11 +174,44 @@ class SM2400:
             data = self.send_msg(msg, True)
 
             if data == 'VOLT':                                                  # if source mode is volt -> return volt
-                return VOLT
+                return FUNC_VOLT
             elif data == 'CURR':                                                # if source mode is curr -> return curr
-                return CURR
+                return FUNC_CURR
         except:
             raise
+
+    '''MAX OUTPUT VALUE'''
+    # set max output value
+    def set_max_out(self, func, value):
+        try:
+            if self.check_func(func) is False:                                  # check if func is available
+                raise Exception('Error: Func is unavailable')
+            if self.check_value('max_out', func, value) is False:                        # check if value is available
+                raise Exception('Error: Value is not available')
+
+            array_func = self.convert_func(func)                                # convert func to array for msg
+            array_value = self.convert_value('max_out', value)                  # convert value to array for msg
+            
+            msg = bytearray(':SENS:' + array_func + ':PROT ' + array_value + '\r\n', 'utf-8')    # set max out
+            self.send_msg(msg, False)
+        except:
+            raise
+
+    # get max output value
+    def get_max_out(self, func):
+        try:
+            if self.check_func(func) is False:                                  # check if func is available
+                raise Exception('Error: Func is unavailable')
+
+            array_func = self.convert_func(func)                                # convert func to array for msg
+
+            msg = bytearray(':SENS:' + array_func + ':PROT?\r\n', 'utf-8')      # get max out
+            data = self.send_msg(msg, True)
+            data = float(data)
+            return data
+        except:
+            raise
+
 
     # -----------------------------------------------------------------------
     # CHECK/CONVERT
@@ -177,13 +228,28 @@ class SM2400:
         except:
             return False
 
-    # check if source mode is available
-    def check_sour_mode(self, mode):
+    # check if func is available
+    def check_func(self, func):
         try:
-            mode_ok = False
-            if mode == VOLT or mode == CURR:
-                mode_ok = True
-            return mode_ok
+            func_ok = False
+            if func == FUNC_VOLT or func == FUNC_CURR:
+                func_ok = True
+            return func_ok
+        except:
+            return False
+
+    # deck if value for max out is available
+    def check_value(self, prg, func, value):
+        try:
+            max_out_ok = False
+            if prg == 'max_out':
+                if func == FUNC_VOLT:
+                    if -210 <= value <= 210:
+                        max_out_ok = True
+                elif func == FUNC_CURR:
+                    if -1.05 <= value <= 1.05:
+                        max_out_ok = True
+            return max_out_ok
         except:
             return False
 
@@ -191,6 +257,7 @@ class SM2400:
     # convert state to array
     def convert_state(self, state):
         try:
+            array_state = ''
             if state == ON:
                 array_state = '1'
             elif state == OFF:
@@ -199,16 +266,28 @@ class SM2400:
         except:
             raise Exception('Error: Could not convert state')
 
-    # convert source mode to array
-    def convert_sour_mode(self, mode):
+    # convert func to array
+    def convert_func(self, func):
         try:
-            if mode == VOLT:
-                array_mode = 'VOLT'
-            elif mode == CURR:
-                array_mode = 'CURR'
-            return array_mode
+            array_func = ''
+            if func == FUNC_VOLT:
+                array_func = 'VOLT'
+            elif func == FUNC_CURR:
+                array_func = 'CURR'
+            return array_func
         except:
-            raise Exception('Error: Could not convert source mode')
+            raise Exception('Error: Could not convert func')
+
+    # convert value to array
+    def convert_value(self, prg, value):
+        try:
+            array_value = ''
+            if prg == 'max_out':
+                array_value = str(value)
+            return array_value
+        except:
+            raise Exception('Error: Could not convert value')
+
 
     # -----------------------------------------------------------------------
     # PROPERTY
@@ -248,9 +327,35 @@ class SM2400:
         except:
             raise
 
-    def _set_sour_mode(self, mode):
+    def _set_sour_mode(self, func):
         try:
-            self.set_sour_mode(mode)
+            self.set_sour_mode(func)
+        except:
+            raise
+
+    # voltage max output value
+    def _get_max_out_volt(self):
+        try:
+            return self.get_max_out(FUNC_VOLT)
+        except:
+            raise
+
+    def _set_max_out_volt(self, value):
+        try:
+            self.set_max_out(FUNC_VOLT, value)
+        except:
+            raise
+
+    # current max output value
+    def _get_max_out_curr(self):
+        try:
+            return self.get_max_out(FUNC_CURR)
+        except:
+            raise
+
+    def _set_max_out_curr(self, value):
+        try:
+            self.set_max_out(FUNC_CURR, value)
         except:
             raise
 
@@ -263,3 +368,9 @@ class SM2400:
 
     # source mode
     sour_mode = property(_get_sour_mode, _set_sour_mode)
+
+    # voltage
+    volt_max_out = property(_get_max_out_volt, _set_max_out_volt)
+
+    # current
+    curr_max_out = property(_get_max_out_curr, _set_max_out_curr)
