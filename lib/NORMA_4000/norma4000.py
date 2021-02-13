@@ -170,9 +170,9 @@ class NORMA4000:
     def __init__(self, ip_add, port=DEFAULT_PORT):
         try:
             pass
-            #self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            #self.tcp_con.settimeout(10)
-            #self.tcp_con.connect((ip_add, port))
+            self.tcp_con = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.tcp_con.settimeout(10)
+            self.tcp_con.connect((ip_add, port))
         except:
             raise Exception("Error: Could not connect")
 
@@ -521,6 +521,7 @@ class NORMA4000:
     # convert func to array
     def convert_func(self, func):
         try:
+            array_func = ''
             if func == 'trms':
                 array_func = ':DC'
             elif func == 'rms':
