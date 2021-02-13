@@ -32,11 +32,6 @@
         measure:
             meas(func=FUNC_CURR)
             curr
-
-    POWER:
-        measure:
-            meas(func=FUNC_PWR)
-            pwr
 '''
 
 import socket
@@ -138,9 +133,9 @@ class SM70AR24:
             data = self.send_msg(msg, True)
 
             if func == FUNC_VOLT:                                                   # if func is volt -> data in variable max volt
-                self.value_max_volt = data
+                self.value_max_volt = float(data)
             elif func == FUNC_CURR:                                                 # if func is curr -> data in variable max curr
-                self.value_max_curr = data
+                self.value_max_curr = float(data)
 
             return float(data)
         except:
