@@ -5,14 +5,14 @@
 
     VOLTAGE:
         max output:
-            Set:    set_max_value(func=FUNC_VOLT, value)
+            Set:    set_max_out(func=FUNC_VOLT, value)
                     volt_max_out = value
-            Get:    get_max_value(func=FUNC_VOLT)
+            Get:    get_max_out(func=FUNC_VOLT)
                     volt_max_out
         output:
-            Set:    set_value(func=FUNC_VOLT, value)
+            Set:    set_out(func=FUNC_VOLT, value)
                     volt_out = value
-            Get:    get_value(func=FUNC_VOLT)
+            Get:    get_out(func=FUNC_VOLT)
                     volt_out
         measure:
             meas(func=FUNC_VOLT)
@@ -20,14 +20,14 @@
 
     CURRENT:
         max output:
-            Set:    set_max_value(func=FUNC_CURR, value)
+            Set:    set_max_out(func=FUNC_CURR, value)
                     curr_max_out = value
-            Get:    get_max_value(func=FUNC_CURR)
+            Get:    get_max_out(func=FUNC_CURR)
                     curr_max_out
         output:
-            Set:    set_value(func=FUNC_CURR, value)
+            Set:    set_out(func=FUNC_CURR, value)
                     curr_out = value
-            Get:    get_value(func=FUNC_CURR)
+            Get:    get_out(func=FUNC_CURR)
                     curr_out
         measure:
             meas(func=FUNC_CURR)
