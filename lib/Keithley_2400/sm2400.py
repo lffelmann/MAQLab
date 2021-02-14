@@ -21,6 +21,11 @@
                     volt_max_out = value
             Get:    get_max_out(FUNC_VOLT, value)
                     volt_max_out
+        output:         (-210 to 210)
+            Set:    set_out(FUNC_VOLT, value)
+                    volt_out = value
+            Get:    get_out(FUNC_VOLT)
+                    volt_out
 
     CURRENT:
         max output:     (-1.05 to 1.05)
@@ -28,6 +33,11 @@
                     curr_max_out = value
             Get:    get_max_out(FUNC_CURR, value)
                     curr_max_out
+        output:         (-1.05 to 1.05)
+            Set:    set_out(FUNC_CURR, value)
+                    curr_out = value
+            Get:    get_out(FUNC_CURR)
+                    curr_out
 
 """
 
@@ -186,7 +196,7 @@ class SM2400:
         try:
             if self.check_func(func) is False:                                  # check if func is available
                 raise Exception('Error: Func is unavailable')
-            if self.check_value('max_out', func, value) is False:                        # check if value is available
+            if self.check_value('max_out', func, value) is False:               # check if value is available
                 raise Exception('Error: Value is not available')
 
             array_func = self.convert_func(func)                                # convert func to array for msg
@@ -212,6 +222,42 @@ class SM2400:
         except:
             raise
 
+    '''OUTPUT VALUE'''
+    # set output value
+    def set_out(self, func, value):
+        try:
+            if self.check_func(func) is False:                                  # check if func is available
+                raise Exception('Error: Func is unavailable')
+            if self.check_value('out', func, value) is False:                   # check if value is available
+                raise Exception('Error: Value is not available')
+
+            array_func = self.convert_func(func)                                # convert func to array for msg
+            array_value = self.convert_value('out', value)                      # convert value to array for msg
+
+            msg = bytearray(':SOUR:' + array_func + ':RANG:AUTO 1\r\n', 'utf-8')    # set source range to auto
+            self.send_msg(msg, False)
+
+            time.sleep(TIME_SLEEP)
+
+            msg = bytearray(':SOUR:' + array_func + ' ' + array_value + '\r\n', 'utf-8')    # set output value
+            self.send_msg(msg, False)
+        except:
+            raise
+
+    # get output value
+    def get_out(self, func):
+        try:
+            if self.check_func(func) is False:                                  # check if func is available
+                raise Exception('Error: Func is unavailable')
+
+            array_func = self.convert_func(func)                                # convert func to array for msg
+
+            msg = bytearray(':SOUR:' + array_func + '?\r\n', 'utf-8')           # get output value
+            data = self.send_msg(msg, True)
+            data = float(data)
+            return data
+        except:
+            raise
 
     # -----------------------------------------------------------------------
     # CHECK/CONVERT
@@ -242,7 +288,8 @@ class SM2400:
     def check_value(self, prg, func, value):
         try:
             max_out_ok = False
-            if prg == 'max_out':
+            if prg == 'max_out' or prg == 'out':
+                value = float(value)
                 if func == FUNC_VOLT:
                     if -210 <= value <= 210:
                         max_out_ok = True
@@ -282,7 +329,7 @@ class SM2400:
     def convert_value(self, prg, value):
         try:
             array_value = ''
-            if prg == 'max_out':
+            if prg == 'max_out' or prg == 'out':
                 array_value = str(value)
             return array_value
         except:
@@ -359,6 +406,32 @@ class SM2400:
         except:
             raise
 
+    # voltage output value
+    def _get_out_volt(self):
+        try:
+            return self.get_out(FUNC_VOLT)
+        except:
+            raise
+
+    def _set_out_volt(self, value):
+        try:
+            self.set_out(FUNC_VOLT, value)
+        except:
+            raise
+
+    # current output value
+    def _get_out_curr(self):
+        try:
+            return self.get_out(FUNC_CURR)
+        except:
+            raise
+
+    def _set_out_curr(self, value):
+        try:
+            self.set_out(FUNC_CURR, value)
+        except:
+            raise
+
     '''PROPERTY'''
     # display
     display = property(_get_display, _set_display)
@@ -371,6 +444,8 @@ class SM2400:
 
     # voltage
     volt_max_out = property(_get_max_out_volt, _set_max_out_volt)
+    volt_out = property(_get_out_volt, _set_out_volt)
 
     # current
     curr_max_out = property(_get_max_out_curr, _set_max_out_curr)
+    curr_out = property(_get_out_curr, _set_out_curr)
