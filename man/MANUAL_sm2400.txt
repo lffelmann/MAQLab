@@ -12,14 +12,14 @@ Contents:
         2.5 Display                                                                 68
             2.5.1 Enable/Disable display                                            71
             2.5.2 Get if display is enabled/disabled                                83
-        2.6	Source                                                                  91
+        2.6 Source                                                                  91
             2.6.1 Set source mode                                                   94
             2.6.2 Get source mode                                                   105
             2.6.3 Set max output                                                    113
             2.6.4 Get set max output                                                128
             2.6.5 Set output                                                        141
             2.6.6 Get set output                                                    156
-        2.7	Measure                                                                 169
+        2.7 Measure                                                                 169
             2.7.1 Set measurement function                                          172
             2.7.2 Get measurement function                                          185
             2.7.3 Get measurement                                                   192
