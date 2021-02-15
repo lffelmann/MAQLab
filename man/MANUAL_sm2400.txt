@@ -1,0 +1,228 @@
+-----------------------------------
+MAQLab - Manual lib sm2400.py
+-----------------------------------
+
+Contents:
+    1 Needed libraries                                                              29
+    2 Functions                                                                     35
+        2.1 Initial                                                                 38
+        2.2 Close Connection                                                        47
+        2.3 Get ID                                                                  54
+        2.4 Reset                                                                   61
+        2.5 Display                                                                 68
+            2.5.1 Enable/Disable display                                            71
+            2.5.2 Get if display is enabled/disabled                                83
+        2.6	Source                                                                  91
+            2.6.1 Set source mode                                                   94
+            2.6.2 Get source mode                                                   105
+            2.6.3 Set max output                                                    113
+            2.6.4 Get set max output                                                128
+            2.6.5 Set output                                                        141
+            2.6.6 Get set output                                                    156
+        2.7	Measure                                                                 169
+            2.7.1 Set measurement function                                          172
+            2.7.2 Get measurement function                                          185
+            2.7.3 Get measurement                                                   192
+    3 Example Program                                                               201
+
+-------------------------
+1 Needed libraries
+-------------------------
+    + pyserial
+    + time
+
+-------------------------
+2 Functions
+-------------------------
+--------------------
+2.1 Initial
+--------------------
+    SM2400(port, baudrate)
+
+    Arguments:
+    port = serial port
+    baudrate = baudrate (normally 9600)
+
+--------------------
+2.2 Close Connection
+--------------------
+    close()
+
+    Return: None
+
+--------------------
+2.3	Get ID
+--------------------
+    id()
+
+    Return: ID of device
+
+--------------------
+2.4	Reset
+--------------------
+    rst()
+
+    Return: None
+
+--------------------
+2.5	Display
+--------------------
+---------------
+2.5.1 Enable/Disable display
+---------------
+    set_display(state)
+    display = state
+
+    Arguments:
+    state = ON
+	      = OFF
+
+    Return: None
+
+---------------
+2.5.2 Get if display is enabled/disabled
+---------------
+    get_display()
+    display
+
+    Return: ON, OFF
+
+--------------------
+2.6	Source
+--------------------
+---------------
+2.6.1 Set source mode
+---------------
+    set_sour_mode(func)
+    sour_mode = func
+
+    Arguments:
+    func = FUNC_VOLT ...set source as voltage source
+         = FUNC_CURR ...set source as current source
+
+    Return: None
+---------------
+2.6.2 Get source mode
+---------------
+    get_sour_mode()
+    sour_mode
+
+    Return: FUNC_VOLT, FUNC_CURR
+
+---------------
+2.6.3 Set max output
+---------------
+    set_max_out(func, value)
+    Voltage: volt_max_out = value
+    Current: curr_max_out = value
+
+    Arguments:
+    func = FUNC_VOLT ...set max output voltage
+	     = FUNC_CURR ...set max output current
+    value = -210...210   ...voltage
+	      = -1.05...1.05 ...current
+
+    Return: None
+
+---------------
+2.6.4 Get set max output
+---------------
+    get_max_out(func)
+    Voltage: volt_max_out
+    Current: curr_max_out
+
+    Arguments:
+    func = FUNC_VOLT ...get set max output voltage
+	     = FUNC_CURR ...get set max output current
+
+    Return: set max output voltage or current
+
+---------------
+2.6.5 Set output
+---------------
+    set_out(func, value)
+    Voltage: volt_out = value
+    Current: curr_out = value
+
+    Arguments:
+    func = FUNC_VOLT ...set output voltage
+	     = FUNC_CURR ...set output current
+    value = -210...210   ...voltage
+	      = -1.05...1.05 ...current
+
+    Return: None
+
+---------------
+2.6.6 Get set output
+---------------
+    get_out(func)
+    Voltage: volt_out
+    Current: curr_out
+
+    Arguments:
+    func = FUNC_VOLT ...get set output voltage
+         = FUNC_CURR ...get set output current
+
+    Return: set output voltage or current
+
+--------------------
+2.7	Measure
+--------------------
+---------------
+2.7.1 Set measurement function
+---------------
+    set_meas_func(func)
+    meas_func = func
+
+    Arguments:
+    func = FUNC_VOLT ...measure voltage
+         = FUNC_CURR ...measure current
+         = FUNC_RES  ...measure resistance
+
+    Return: None
+
+---------------
+2.7.2 Get measurement function
+---------------
+    get_meas_func()
+    meas_func
+
+    Return: selected measurement function
+---------------
+2.7.3 Get measurement
+---------------
+    meas()
+
+    Return: measured voltage, current or resistance
+
+    Output must be on to get measurement.
+
+-------------------------
+3 Example Program
+-------------------------
+    import sm2400
+    import time
+
+    if __name__ == '__main__':
+        device = sm2400.SM2400('COM3', 9600)
+
+        device.set_sour_mode(sm2400.FUNC_VOLT)
+        time.sleep(1)
+
+        device.set_max_out(sm2400.FUNC_CURR, 0.5)
+        time.sleep(1)
+
+        device.set_out(sm2400.FUNC_VOLT, 2)
+        time.sleep(1)
+
+        device.set_meas_func(sm2400.FUNC_RES)
+        time.sleep(1)
+
+        device.set_ena_out(sm2400.ON)
+        time.sleep(1)
+
+        print(device.meas())
+
+        device.set_ena_out(sm2400.OFF)
+
+    After every command without a return there should be a timeout so that the device can process the command.
