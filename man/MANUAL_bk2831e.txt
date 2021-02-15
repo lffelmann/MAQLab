@@ -16,7 +16,7 @@ Contents:
             2.6.1 Select trigger                                                    97
             2.6.2 Get selected trigger                                              110
             2.6.3 Trigger measurement                                               118
-        2.7	Range                                                                   127
+        2.7 Range                                                                   127
             2.7.1 Set range                                                         130
             2.7.2 Get range                                                         159
         2.8 Reference                                                               182
