@@ -150,7 +150,7 @@ Contents:
 	      = 0.2, 2, 20, 200, 750               ...Voltage AC
 	      = 0.2, 2, 20, 200, 1000              ...Voltage DC
 	      = 0.002, 0.02, 0.2, 2, 20	           ...Current
-	      = 0 200, 2e3, 20e3, 200e3, 2e6, 20e6 ...Resistance
+	      = 200, 2e3, 20e3, 200e3, 2e6, 20e6   ...Resistance
 	      = 0.2, 2, 20, 200, 750	           ...Frequency and Period threshold voltage range
 
     Return: None
