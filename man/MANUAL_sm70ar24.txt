@@ -13,9 +13,9 @@ Contents:
             2.5.1 Set max output                                                    60
             2.5.2 Get set max output                                                75
             2.5.3 Set output                                                        88
-            2.5.4 Get set output                                                    102
-        2.6 Measure                                                                 115
-    3 Example Program                                                               128
+            2.5.4 Get set output                                                    103
+        2.6 Measure                                                                 116
+    3 Example Program                                                               129
 
 -------------------------
 1 Needed libraries
@@ -94,7 +94,8 @@ Contents:
     Arguments:
         func 	= FUNC_VOLT	...set output voltage
             	= FUNC_CURR	...set output current
-        value	= value of output voltage or current
+        value	= 0...70	...voltage
+	            = 0...24	...current
 
     Return: None
 
