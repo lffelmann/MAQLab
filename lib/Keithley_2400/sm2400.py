@@ -26,11 +26,6 @@
                     volt_out = value
             Get:    get_out(FUNC_VOLT)
                     volt_out
-        Measurement range:  (-210 to 210)
-            Set:    set_range(FUNC_VOLT, range)
-                    volt_range = range
-            Get:    get_range(FUNC_VOLT)
-                    volt_range
 
     CURRENT:
         max output:     (-1.05 to 1.05)
@@ -43,18 +38,14 @@
                     curr_out = value
             Get:    get_out(FUNC_CURR)
                     curr_out
-        Measurement range:  (-1.05 to 1.05)
-            Set:    set_range(FUNC_CURR, range)
-                    curr_range = range
-            Get:    get_range(FUNC_CURR)
-                    curr_range
 
-    RESISTANCE:
-        Measurement range:  (0 to 2.1e8)
-            Set:    set_range(FUNC_RES, range)
-                    res_range = range
-            Get:    get_range(FUNC_RES)
-                    res_range
+    MEASURE:
+        measurement function:   (FUNC_VOLT, FUNC_CURR, FUNC_RES)
+            Set:    set_meas_func(func)
+            Get:    get_meas_func()
+
+        measure:
+            meas()
 
 """
 
@@ -214,7 +205,7 @@ class SM2400:
         try:
             if self.check_func('source', func) is False:                                  # check if func is available
                 raise Exception('Error: Func is unavailable')
-            if self.check_value('max_out', func, value) is False:               # check if value is available
+            if self.check_value(func, value) is False:               # check if value is available
                 raise Exception('Error: Value is not available')
 
             array_func = self.convert_func('std', func)                                # convert func to array for msg
@@ -246,7 +237,7 @@ class SM2400:
         try:
             if self.check_func('source', func) is False:                                  # check if func is available
                 raise Exception('Error: Func is unavailable')
-            if self.check_value('out', func, value) is False:                   # check if value is available
+            if self.check_value(func, value) is False:                   # check if value is available
                 raise Exception('Error: Value is not available')
 
             array_func = self.convert_func('std', func)                                # convert func to array for msg
@@ -283,112 +274,60 @@ class SM2400:
 
     '''MEASUREMENT FUNCTION'''
     # set measurement function
-    def set_meas_func(self, func1=None, func2=None, func3=None):
+    def set_meas_func(self, func):
         try:
-            if func1 is not None:
-                if self.check_func('meas', func1) is False:                     # check if func1 is available
-                    raise Exception('Error: Func1 is unavailable')
-            if func2 is not None:
-                if self.check_func('meas', func2) is False:                     # check if func2 is available
-                    raise Exception('Error: Func2 is unavailable')
-            if func3 is not None:
-                if self.check_func('meas', func3) is False:                     # check if func3 is available
-                    raise Exception('Error: Func3 is unavailable')
+            if self.check_func('meas', func) is False:                          # check if func is available
+                raise Exception('Error: Func is unavailable')
 
-            array_func1 = self.convert_func('meas_func', func1)                 # convert func1 to array for msg
-            array_func2 = self.convert_func('meas_func', func2)                 # convert func2 to array for msg
-            array_func3 = self.convert_func('meas_func', func3)                 # convert func3 to array for msg
+            array_func = self.convert_func('std', func)                         # convert func to array for msg
 
-            msg = bytearray(':FUNC:CONC 1\r\n', 'utf-8')                        # enabled multi measurement
+            msg = bytearray(':FUNC:CONC 0\r\n', 'utf-8')                        # disable multi measurement
             self.send_msg(msg, False)
             time.sleep(TIME_SLEEP)
 
-            msg = bytearray(':FUNC:OFF:ALL\r\n', 'utf-8')                       # disable all measurement functions
+            msg = bytearray(':FUNC "' + array_func + '"\r\n', 'utf-8')          # set measurement func
             self.send_msg(msg, False)
             time.sleep(TIME_SLEEP)
 
-            msg = bytearray(':FUNC ' + array_func1 + array_func2 + array_func3 + '\r\n', 'utf-8')  # set measurement func
+            msg = bytearray(':FORM:ELEM ' + array_func + '\r\n', 'utf-8')       # buffer element is func
+            self.send_msg(msg, False)
+            time.sleep(TIME_SLEEP)
+
+            msg = bytearray(':' + array_func + ':RANG:AUTO 1\r\n', 'utf-8')     # set range on auto
             self.send_msg(msg, False)
 
-            if func1 == FUNC_RES or func2 == FUNC_RES or func3 == FUNC_RES:     # if meas func is res -> set mode to manual
+            if func == FUNC_RES:                                                # if meas func is res -> set mode to manual
                 time.sleep(TIME_SLEEP)
-                msg = bytearray(':RES:MODE AUTO\r\n', 'utf-8')
+                msg = bytearray(':RES:MODE MANUAL\r\n', 'utf-8')
                 self.send_msg(msg, False)
+
         except:
             raise
 
     # get measurement function
     def get_meas_func(self):
         try:
-            list_func = []                                                      # list to save meas func
-
-            list_tryout = ['"VOLT"', '"CURR"', '"RES"']
-            list_set = [FUNC_VOLT, FUNC_CURR, FUNC_RES]
-
-            for i in range(0, len(list_tryout)):
-                msg = bytearray(':FUNC:STAT? ' + list_tryout[i] + '\r\n', 'utf-8')  # get if meas func is volt
-                data = self.send_msg(msg, True)
-                if data == '1':
-                    list_func.append(list_set[i])
-
-            return list_func
-        except:
-            raise
-
-    '''RANGE'''
-    # set measurement range
-    def set_range(self, func, range):
-        try:
-            if self.check_func('meas', func) is False:                          # check if func is available
-                raise Exception('Error: Func is unavailable')
-            if self.check_value('range', func, range) is False:                 # check if range is available
-                raise Exception('Error: Range is not available')
-
-            array_func = self.convert_func('std', func)                         # convert func to array for msg
-
-            if range == AUTO:
-                msg = bytearray(':' + array_func + ':RANG:AUTO 1\r\n', 'utf-8') # if range is auto -> set range on auto
-                self.send_msg(msg, False)
-            else:
-                msg = bytearray(':' + array_func + ':RANG:AUTO 0\r\n', 'utf-8') # if range is not auto -> disable
-                self.send_msg(msg, False)
-                time.sleep(TIME_SLEEP)
-                array_range = self.convert_value('range', range)                # convert range to array for msg
-                msg = bytearray(':' + array_func + ':RANG ' + array_range + '\r\n', 'utf-8')    # set range
-                self.send_msg(msg, False)
-        except:
-            raise
-
-    # get measurement range
-    def get_range(self, func):
-        try:
-            if self.check_func('meas', func) is False:                          # check if func is available
-                raise Exception('Error: Func is unavailable')
-
-            array_func = self.convert_func('std', func)                         # convert func to array for msg
-
-            msg = bytearray(':' + array_func + ':RANG:AUTO?\r\n', 'utf-8')      # get if range is auto
+            msg = bytearray(':FUNC?\r\n', 'utf-8')                              # get meas func
             data = self.send_msg(msg, True)
 
-            if data == '1':                                                     # if range is auto -> return auto
-                return AUTO
-            elif data == '0':
-                msg = bytearray(':' + array_func + ':RANG?\r\n', 'utf-8')       # get range
-                data = self.send_msg(msg, True)
-                data = float(data)
-                return data
+            if data == '"VOLT:DC"':
+                return FUNC_VOLT
+            elif data == '"CURR:DC"':
+                return FUNC_CURR
+            elif data == '"RES"':
+                return FUNC_RES
         except:
             raise
 
     '''MEASURE'''
-    def meas(self, func):
+    def meas(self):
         try:
-            if self.check_func('meas', func) is False:                          # check if func is available
-                raise Exception('Error: Func is unavailable')
+            msg = bytearray(':TRAC:CLE\r\n', 'utf-8')                           # clear buffer
+            self.send_msg(msg, False)
+            time.sleep(TIME_SLEEP)
 
-            array_func = self.convert_func('std', func)                         # convert func to array for msg
 
-            msg = bytearray(':MEAS:' + array_func + '?\r\n', 'utf-8')           # get measurement
+            msg = bytearray(':READ?\r\n', 'utf-8')                              # get measurement
             data = self.send_msg(msg, True)
             data = float(data)
             return data
@@ -425,31 +364,16 @@ class SM2400:
             return False
 
     # deck if value for max out is available
-    def check_value(self, prg, func, value):
+    def check_value(self, func, value):
         try:
             value_ok = False
-            if prg == 'max_out' or prg == 'out':
-                value = float(value)
-                if func == FUNC_VOLT:
-                    if -210 <= value <= 210:
-                        value_ok = True
-                elif func == FUNC_CURR:
-                    if -1.05 <= value <= 1.05:
-                        value_ok = True
-            elif prg == 'range':
-                if value == AUTO:
+            value = float(value)
+            if func == FUNC_VOLT:
+                if -210 <= value <= 210:
                     value_ok = True
-                else:
-                    value = float(value)
-                    if func == FUNC_VOLT:
-                        if -210 <= value <= 210:
-                            value_ok = True
-                    elif func == FUNC_CURR:
-                        if -1.05 <= value <= 1.05:
-                            value_ok = True
-                    elif func == FUNC_RES:
-                        if 0 <= value <= 2.1e8:
-                            value_ok = True
+            elif func == FUNC_CURR:
+                if -1.05 <= value <= 1.05:
+                    value_ok = True
             return value_ok
         except:
             return False
@@ -471,20 +395,12 @@ class SM2400:
     def convert_func(self, prg, func):
         try:
             array_func = ''
-            if prg == 'std':
-                if func == FUNC_VOLT:
-                    array_func = 'VOLT'
-                elif func == FUNC_CURR:
-                    array_func = 'CURR'
-                elif func == FUNC_RES:
-                    array_func = 'RES'
-            elif prg == 'meas_func':
-                if func == FUNC_VOLT:
-                    array_func = '"VOLT",'
-                elif func == FUNC_CURR:
-                    array_func = '"CURR",'
-                elif func == FUNC_RES:
-                    array_func = '"RES",'
+            if func == FUNC_VOLT:
+                array_func = 'VOLT'
+            elif func == FUNC_CURR:
+                array_func = 'CURR'
+            elif func == FUNC_RES:
+                array_func = 'RES'
             return array_func
         except:
             raise Exception('Error: Could not convert func')
@@ -493,7 +409,7 @@ class SM2400:
     def convert_value(self, prg, value):
         try:
             array_value = ''
-            if prg == 'max_out' or prg == 'out' or prg == 'range':
+            if prg == 'max_out' or prg == 'out':
                 array_value = str(value)
             return array_value
         except:
@@ -596,45 +512,6 @@ class SM2400:
         except:
             raise
 
-    # voltage range
-    def _get_range_volt(self):
-        try:
-            return self.get_range(FUNC_VOLT)
-        except:
-            raise
-
-    def _set_range_volt(self, range):
-        try:
-            self.set_range(FUNC_VOLT, range)
-        except:
-            raise
-
-    # current range
-    def _get_range_curr(self):
-        try:
-            return self.get_range(FUNC_CURR)
-        except:
-            raise
-
-    def _set_range_curr(self, range):
-        try:
-            self.set_range(FUNC_CURR, range)
-        except:
-            raise
-
-    # resistance range
-    def _get_range_res(self):
-        try:
-            return self.get_range(FUNC_RES)
-        except:
-            raise
-
-    def _set_range_res(self, range):
-        try:
-            self.set_range(FUNC_RES, range)
-        except:
-                raise
-
     '''PROPERTY'''
     # display
     display = property(_get_display, _set_display)
@@ -648,12 +525,7 @@ class SM2400:
     # voltage
     volt_max_out = property(_get_max_out_volt, _set_max_out_volt)
     volt_out = property(_get_out_volt, _set_out_volt)
-    volt_range = property(_get_range_volt, _set_range_volt)
 
     # current
     curr_max_out = property(_get_max_out_curr, _set_max_out_curr)
     curr_out = property(_get_out_curr, _set_out_curr)
-    curr_range = property(_get_range_curr, _set_range_curr)
-
-    # resistance
-    res_range = property(_get_range_res, _set_range_res)
