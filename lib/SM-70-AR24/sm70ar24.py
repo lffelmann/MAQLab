@@ -103,20 +103,20 @@ class SM70AR24:
     # set max output value of voltage and current
     def set_max_out(self, func, value):
         try:
-            if self.check_func(func) is False:                               # check if func is available
+            if self.check_func(func) is False:                                                          # check if func is available
                 raise Exception('Error: Function is unavailable')
-            if self.check_value('max', func, value) is False:                              # check if value is available
+            if self.check_value('max', func, value) is False:                                           # check if value is available
                 raise Exception('Error: Value is unavailable')
 
-            array_func = self.convert_func(func)                                    # convert func into array for msg
-            array_value = self.convert_value(value)                                 # convert value into array for msg
+            array_func = self.convert_func(func)                                                        # convert func into array for msg
+            array_value = self.convert_value(value)                                                     # convert value into array for msg
 
-            msg = bytearray('SOUR:' + array_func + ':MAX ' + array_value + '\r\n', 'utf-8')     # set max output value
+            msg = bytearray('SOUR:' + array_func + ':MAX ' + array_value + '\r\n', 'utf-8')             # set max output value
             self.send_msg(msg, False)
 
-            if func == FUNC_VOLT:                                                   # if func is volt -> value in variable max volt
+            if func == FUNC_VOLT:                                                                       # if func is volt -> value in variable max volt
                 self.value_max_volt = value
-            elif func == FUNC_CURR:                                                 # if func is curr -> value in variable max curr
+            elif func == FUNC_CURR:                                                                     # if func is curr -> value in variable max curr
                 self.value_max_curr = value
         except:
             raise
@@ -124,17 +124,17 @@ class SM70AR24:
     # get set max output voltage and current
     def get_max_out(self, func):
         try:
-            if self.check_func(func) is False:                               # check if func is available
+            if self.check_func(func) is False:                                                          # check if func is available
                 raise Exception('Error: Function is unavailable')
 
-            array_func = self.convert_func(func)                                    # convert func into array for msg
+            array_func = self.convert_func(func)                                                        # convert func into array for msg
 
-            msg = bytearray('SOUR:'+ array_func +':MAX?\r\n', 'utf-8')                # get max output value
+            msg = bytearray('SOUR:'+ array_func +':MAX?\r\n', 'utf-8')                                  # get max output value
             data = self.send_msg(msg, True)
 
-            if func == FUNC_VOLT:                                                   # if func is volt -> data in variable max volt
+            if func == FUNC_VOLT:                                                                       # if func is volt -> data in variable max volt
                 self.value_max_volt = float(data)
-            elif func == FUNC_CURR:                                                 # if func is curr -> data in variable max curr
+            elif func == FUNC_CURR:                                                                     # if func is curr -> data in variable max curr
                 self.value_max_curr = float(data)
 
             return float(data)
@@ -161,7 +161,7 @@ class SM70AR24:
     # get set output voltage and current
     def get_out(self, func):
         try:
-            if self.check_func(func) is False:                               # check if func is available
+            if self.check_func(func) is False:                                                      # check if func is available
                 raise Exception('Error: Function is unavailable')
 
             array_func = self.convert_func(func)                                    # convert func into array for msg
@@ -176,12 +176,12 @@ class SM70AR24:
     # measure voltage, current and power
     def meas(self, func):
         try:
-            if self.check_func(func) is False:                              # check if func is available
+            if self.check_func(func) is False:                                                              # check if func is available
                 raise Exception('Error: Function is unavailable')
 
-            array_func = self.convert_func(func)                                    # convert func into array for msg
+            array_func = self.convert_func(func)                                                            # convert func into array for msg
 
-            msg = bytearray('MEAS:' + array_func + '?\r\n', 'utf-8')                # get measurement
+            msg = bytearray('MEAS:' + array_func + '?\r\n', 'utf-8')                                        # get measurement
             data = self.send_msg(msg, True)
             return float(data)
         except:
