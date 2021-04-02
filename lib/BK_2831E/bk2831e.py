@@ -336,7 +336,6 @@ class BK2831E:
             time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('speed', func)                     # convert func to array for msg
-
             array_speed = self.convert_speed(speed)                           # convert speed to array for msg
 
             msg = bytearray(array_func + ':NPLC ' + array_speed + '\r\n', 'utf-8')  # set measurement speed
@@ -406,18 +405,17 @@ class BK2831E:
             time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('range', func)                     # convert func to array for msg
-            data = None
+
             if func != FUNC_FREQ and func != FUNC_PER:                        # if range can be set on auto -> check if range is auto
                 msg = bytearray(array_func + ':RANG:AUTO?\r\n', 'utf-8')
                 data = self.send_msg(msg, True)
 
-
-            if data == '1':                                                  # if range is auto -> return range is auto
-                return AUTO
-            elif data == '0' or func == FUNC_FREQ or func == FUNC_PER:       # if range is not auto or range cant be set on auto -> get range and return range
+            if data == '0' or func == FUNC_FREQ or func == FUNC_PER:       # if range is not auto or range cant be set on auto -> get range and return range
                 msg = bytearray(array_func + ':RANG?\r\n', 'utf-8')
                 data = self.send_msg(msg, True)
                 return float(data)
+            elif data == '1':                                                  # if range is auto -> return range is auto
+                return AUTO
         except:
             raise
 
@@ -449,7 +447,6 @@ class BK2831E:
                     array_ref = self.convert_ref(ref)                   # convert ref to array for msg
                     msg = bytearray(array_func + ':REF ' + array_ref + '\r\n', 'utf-8')
                     self.send_msg(msg, False)
-
         except:
             raise
 

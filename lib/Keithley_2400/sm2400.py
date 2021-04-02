@@ -236,19 +236,19 @@ class SM2400:
     # set output value
     def set_out(self, func, value):
         try:
-            if self.check_func('source', func) is False:                        # check if func is available
+            if self.check_func('source', func) is False:                                        # check if func is available
                 raise Exception('Error: Func is unavailable')
-            if self.check_value(func, value) is False:                          # check if value is available
+            if self.check_value(func, value) is False:                                          # check if value is available
                 raise Exception('Error: Value is not available')
 
-            array_func = self.convert_func(func)                                # convert func to array for msg
-            array_value = self.convert_value(value)                             # convert value to array for msg
+            array_func = self.convert_func(func)                                                # convert func to array for msg
+            array_value = self.convert_value(value)                                             # convert value to array for msg
 
-            msg = bytearray(':SOUR:' + array_func + ':RANG:AUTO 1\r\n', 'utf-8')    # set source range to auto
+            msg = bytearray(':SOUR:' + array_func + ':RANG:AUTO 1\r\n', 'utf-8')                # set source range to auto
             self.send_msg(msg, False)
             time.sleep(TIME_SLEEP)
 
-            msg = bytearray(':SOUR:' + array_func + ' ' + array_value + '\r\n', 'utf-8')    # set output value
+            msg = bytearray(':SOUR:' + array_func + ' ' + array_value + '\r\n', 'utf-8')        # set output value
             self.send_msg(msg, False)
         except:
             raise
