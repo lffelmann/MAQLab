@@ -239,7 +239,6 @@ class NORMA4000:
             msg = bytearray('ROUTe:SYSTem' + methode_array + '\r\n', 'utf-8')
             self.send_msg(msg, False)
         except:
-            self.watt_methode = 0
             raise
 
     # ---------------------------------------------------------
