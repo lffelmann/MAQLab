@@ -105,7 +105,7 @@ class SM70AR24:
         try:
             if self.check_func(func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
-            if self.check_value(func, value) is False:                              # check if value is available
+            if self.check_value('max', func, value) is False:                              # check if value is available
                 raise Exception('Error: Value is unavailable')
 
             array_func = self.convert_func(func)                                    # convert func into array for msg
@@ -147,7 +147,7 @@ class SM70AR24:
         try:
             if self.check_func(func) is False:                               # check if func is available
                 raise Exception('Error: Function is unavailable')
-            if self.check_value(func, value) is False:                              # check if value is available
+            if self.check_value('std', func, value) is False:                              # check if value is available
                 return 'Error: Value out of range or other error'
 
             array_func = self.convert_func(func)                                    # convert func into array for msg
@@ -203,14 +203,20 @@ class SM70AR24:
             return False
 
     # check if value is in range
-    def check_value(self, func, value):
+    def check_value(self, kind, func, value):
         try:
             value = float(value)
             value_ok = False
-            if func == FUNC_VOLT and 0 <= value <= self.value_max_volt:
-                value_ok = True
-            elif func == FUNC_CURR and 0 <= value <= self.value_max_curr:
-                value_ok = True
+            if kind == 'std':
+                if func == FUNC_VOLT and 0 <= value <= self.value_max_volt:
+                    value_ok = True
+                elif func == FUNC_CURR and 0 <= value <= self.value_max_curr:
+                    value_ok = True
+            elif kind == 'max':
+                if func == FUNC_VOLT and 0 <= value <= MAX_VOLT:
+                    value_ok = True
+                elif func == FUNC_CURR and 0 <= value <= MAX_CURR:
+                    value_ok = True
             return value_ok
         except:
             return False
