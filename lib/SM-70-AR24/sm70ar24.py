@@ -132,12 +132,14 @@ class SM70AR24:
             msg = bytearray('SOUR:'+ array_func +':MAX?\r\n', 'utf-8')                                  # get max output value
             data = self.send_msg(msg, True)
 
-            if func == FUNC_VOLT:                                                                       # if func is volt -> data in variable max volt
-                self.value_max_volt = float(data)
-            elif func == FUNC_CURR:                                                                     # if func is curr -> data in variable max curr
-                self.value_max_curr = float(data)
+            data = float(data)
 
-            return float(data)
+            if func == FUNC_VOLT:                                                                       # if func is volt -> data in variable max volt
+                self.value_max_volt = data
+            elif func == FUNC_CURR:                                                                     # if func is curr -> data in variable max curr
+                self.value_max_curr = data
+
+            return data
         except:
             raise
 
