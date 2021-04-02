@@ -249,24 +249,24 @@ class NORMA4000:
     '''VOLTAGE'''
     def volt(self, func, phase):
         try:
-            if not self.check_watt_meth():                                      # check if wattmeter method is selected
+            if not self.check_watt_meth():                                                                      # check if wattmeter method is selected
                 raise Exception('Error: No wattmeter method selected')
-            if not self.check_func('volt', func):                               # check if func is available
+            if not self.check_func('volt', func):                                                               # check if func is available
                 raise Exception('Error: Function is not available')
-            if not self.check_phase('volt', phase):                             # check if phase is available
+            if not self.check_phase('volt', phase):                                                             # check if phase is available
                 raise Exception('Error: Phase is not available')
-            if not self.check_phase_watt(phase):                                # check if phase and wattmeter method match
+            if not self.check_phase_watt(phase):                                                                # check if phase and wattmeter method match
                 raise Exception('Error: Phase and wattmeter method dont match')
-            if not self.check_phase_func('volt', phase, func):                  # check if phase and function match
+            if not self.check_phase_func('volt', phase, func):                                                  # check if phase and function match
                 raise Exception('Error: Phase and function dont match')
-            if not self.check_cont_meas():                                      # if measurement method is not continuous -> set measurement method on continuous
+            if not self.check_cont_meas():                                                                      # if measurement method is not continuous -> set measurement method on continuous
                 self.cont_meas()
                 time.sleep(1)
 
-            array_func = self.convert_func(func)                                # convert func to array for msg
-            array_phase = self.convert_phase(phase)                             # convert phase to array for msg
+            array_func = self.convert_func(func)                                                                # convert func to array for msg
+            array_phase = self.convert_phase(phase)                                                             # convert phase to array for msg
 
-            msg = bytearray('DATA? "VOLT' + str(array_phase) + str(array_func) + '"\r\n','utf-8')     # get voltage and return voltage
+            msg = bytearray('DATA? "VOLT' + str(array_phase) + str(array_func) + '"\r\n','utf-8')               # get voltage and return voltage
             data = self.send_msg(msg, True)
             return float(data)
         except:
