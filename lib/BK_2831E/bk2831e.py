@@ -220,7 +220,7 @@ class BK2831E:
                 start = data.find('\r') + 1
                 end = data.find('\n')
                 data = data[start:end]
-                return data
+                return data.strip('\t\n\r')
         except:
             raise Exception('Error: Writing and/or reading data')
 
