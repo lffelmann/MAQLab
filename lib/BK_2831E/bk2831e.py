@@ -368,25 +368,25 @@ class BK2831E:
     # set range
     def set_range(self, func, range):
         try:
-            if self.check_func('range', func) is False:                       # check if func is available
+            if self.check_func('range', func) is False:                                 # check if func is available
                 raise Exception('Error: Function is unavailable')
-            if self.check_range(func, range) is False:                        # check if range is available
+            if self.check_range(func, range) is False:                                  # check if range is available
                 raise Exception('Error: Range is unavailable')
 
-            self.set_func(func)                                               # set func
+            self.set_func(func)                                                         # set func
 
-            array_func = self.convert_func('range', func)                     # convert func to array for msg
+            array_func = self.convert_func('range', func)                               # convert func to array for msg
 
-            if range == AUTO:                                                 # if range is auto -> enable auto
+            if range == AUTO:                                                           # if range is auto -> enable auto
                 msg = bytearray(array_func + ':RANG:AUTO ON\r\n', 'utf-8')
                 self.send_msg(msg, False)
-            elif func != FUNC_FREQ and func != FUNC_PER:                      # if range can be set on auto -> disable range auto
+            elif func != FUNC_FREQ and func != FUNC_PER:                                # if range can be set on auto -> disable range auto
                 msg = bytearray(array_func + ':RANG:AUTO OFF\r\n', 'utf-8')
                 self.send_msg(msg, False)
                 time.sleep(TIME_SLEEP)
 
-            if range != AUTO:                                                 # if range is not auto -> set range
-                array_range = self.convert_range(range)                   # convert range to array for msg
+            if range != AUTO:                                                           # if range is not auto -> set range
+                array_range = self.convert_range(range)                                 # convert range to array for msg
                 msg = bytearray(array_func + ':RANG ' + array_range + '\r\n', 'utf-8')
                 self.send_msg(msg, False)
         except:
