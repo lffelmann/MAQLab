@@ -438,7 +438,7 @@ class BK2831E:
                 if ref == ACQ:                                                              # if ref is ACQ -> set ref ACQ
                     msg = bytearray(array_func + ':REF:ACQ\r\n', 'utf-8')
                     self.send_msg(msg, False)
-                            else:                                                         # if ref is ON and not ACQ -> set ref
+                else:                                                                       # if ref is ON and not ACQ -> set ref
                     array_ref = self.convert_ref(ref)                                       # convert ref to array for msg
                     msg = bytearray(array_func + ':REF ' + array_ref + '\r\n', 'utf-8')
                     self.send_msg(msg, False)
