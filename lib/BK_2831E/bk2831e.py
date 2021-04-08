@@ -419,27 +419,27 @@ class BK2831E:
     # set reference
     def set_ref(self, func, ref):
         try:
-            if self.check_func('ref', func) is False:                         # check if func is available
+            if self.check_func('ref', func) is False:                                       # check if func is available
                 raise Exception('Error: Function is unavailable')
-            if self.check_ref(func, ref) is False:                            # check if ref is available
+            if self.check_ref(func, ref) is False:                                          # check if ref is available
                 raise Exception('Error: Reference is unavailable')
 
-            self.set_func(func)                                               # set func
+            self.set_func(func)                                                             # set func
 
-            array_func = self.convert_func('ref', func)                       # convert func to array for msg
+            array_func = self.convert_func('ref', func)                                     # convert func to array for msg
 
-            if ref == OFF:                                                    # if ref is OFF -> turn ref OFF
+            if ref == OFF:                                                                  # if ref is OFF -> turn ref OFF
                 msg = bytearray(array_func + ':REF:STAT OFF\r\n', 'utf-8')
                 self.send_msg(msg, False)
-            else:                                                             # if ref is not OFF -> turn ref ON
+            else:                                                                           # if ref is not OFF -> turn ref ON
                 msg = bytearray(array_func + ':REF:STAT ON\r\n', 'utf-8')
                 self.send_msg(msg, False)
                 time.sleep(TIME_SLEEP)
-                if ref == ACQ:                                                # if ref is ACQ -> set ref ACQ
+                if ref == ACQ:                                                              # if ref is ACQ -> set ref ACQ
                     msg = bytearray(array_func + ':REF:ACQ\r\n', 'utf-8')
                     self.send_msg(msg, False)
-                else:                                                         # if ref is ON and not ACQ -> set ref
-                    array_ref = self.convert_ref(ref)                   # convert ref to array for msg
+                            else:                                                         # if ref is ON and not ACQ -> set ref
+                    array_ref = self.convert_ref(ref)                                       # convert ref to array for msg
                     msg = bytearray(array_func + ':REF ' + array_ref + '\r\n', 'utf-8')
                     self.send_msg(msg, False)
         except:
