@@ -333,7 +333,6 @@ class BK2831E:
                 raise Exception('Error: Speed is unavailable')
 
             self.set_func(func)                                                         # set func
-            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('speed', func)                               # convert func to array for msg
             array_speed = self.convert_speed(speed)                                     # convert speed to array for msg
@@ -350,7 +349,6 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('speed', func)                     # convert func to array for msg
 
@@ -376,7 +374,6 @@ class BK2831E:
                 raise Exception('Error: Range is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('range', func)                     # convert func to array for msg
 
@@ -402,7 +399,6 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('range', func)                     # convert func to array for msg
 
@@ -429,7 +425,6 @@ class BK2831E:
                 raise Exception('Error: Reference is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('ref', func)                       # convert func to array for msg
 
@@ -457,7 +452,6 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(TIME_SLEEP)
 
             array_func = self.convert_func('ref', func)                       # convert func to array for msg
 
@@ -480,7 +474,6 @@ class BK2831E:
                 raise Exception('Error: Function is unavailable')
 
             self.set_func(func)                                               # set func
-            time.sleep(TIME_SLEEP)
 
             msg = bytearray('FETC?\r\n', 'utf-8')                             # get measurement and return measurement
             data = self.send_msg(msg, True)
