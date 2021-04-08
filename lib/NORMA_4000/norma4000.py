@@ -190,7 +190,7 @@ class NORMA4000:
             if receive is True:
                 data = self.tcp_con.recv(BUFFER)
                 data = str(data, 'utf-8')
-                return data.strip('\t\n\r')
+                return data.strip('\t\n\r ')
         except:
             raise Exception('Error: Writing and/or reading data')
 
