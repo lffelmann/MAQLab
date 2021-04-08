@@ -220,7 +220,7 @@ class BK2831E:
                 start = data.find('\r') + 1
                 end = data.find('\n')
                 data = data[start:end]
-                return data.strip('\t\n\r ')
+                return data.strip('\n\r')
         except:
             raise Exception('Error: Writing and/or reading data')
 
@@ -327,18 +327,18 @@ class BK2831E:
     # set measurement speed
     def set_meas_speed(self, func, speed):
         try:
-            if self.check_func('speed', func) is False:                       # check if func is available
+            if self.check_func('speed', func) is False:                                 # check if func is available
                 raise Exception('Error: Function is unavailable')
-            if self.check_speed(speed) is False:                              # check if speed is available
+            if self.check_speed(speed) is False:                                        # check if speed is available
                 raise Exception('Error: Speed is unavailable')
 
-            self.set_func(func)                                               # set func
+            self.set_func(func)                                                         # set func
             time.sleep(TIME_SLEEP)
 
-            array_func = self.convert_func('speed', func)                     # convert func to array for msg
-            array_speed = self.convert_speed(speed)                           # convert speed to array for msg
+            array_func = self.convert_func('speed', func)                               # convert func to array for msg
+            array_speed = self.convert_speed(speed)                                     # convert speed to array for msg
 
-            msg = bytearray(array_func + ':NPLC ' + array_speed + '\r\n', 'utf-8')  # set measurement speed
+            msg = bytearray(array_func + ':NPLC ' + array_speed + '\r\n', 'utf-8')      # set measurement speed
             self.send_msg(msg, False)
         except:
             raise
