@@ -227,9 +227,9 @@ class BK2831E:
     '''SET FUNC'''
     def set_func(self, func):
         try:
-            array_func = self.convert_func('meas', func)  # convert func to array for msg
+            array_func = self.convert_func('meas', func)                    # convert func to array for msg
 
-            msg = bytearray(':FUNC ' + array_func + '\r\n', 'utf-8')  # set to certain func
+            msg = bytearray(':FUNC ' + array_func + '\r\n', 'utf-8')        # set to certain func
             self.send_msg(msg, False)
             time.sleep(TIME_SLEEP)
         except:
