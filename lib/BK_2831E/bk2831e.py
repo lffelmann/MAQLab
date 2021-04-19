@@ -406,7 +406,7 @@ class BK2831E:
                 msg = bytearray(array_func + ':RANG:AUTO?\r\n', 'utf-8')
                 data = self.send_msg(msg, True)
 
-            if data == '0' or func == FUNC_FREQ or func == FUNC_PER:       # if range is not auto or range cant be set on auto -> get range and return range
+            if data == '0' or func == FUNC_FREQ or func == FUNC_PER:            # if range is not auto or range cant be set on auto -> get range and return range
                 msg = bytearray(array_func + ':RANG?\r\n', 'utf-8')
                 data = self.send_msg(msg, True)
                 return float(data)
